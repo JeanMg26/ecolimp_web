@@ -55,25 +55,40 @@
 
 <table width="100%">
    <tr>
-      <td class="imagen" rowspan="4" width="20%"><img src="{{ asset('img/ecolimp.png') }}" alt="homepage" width="130" class="light-logo" /> </td>
-      <td width="33%">ECOLIMP - SISTEMA DE LIMPIEZA</td>
+      <td class="imagen" rowspan="7" width="20%"><img src="{{ asset('img/ecolimp.png') }}" alt="homepage" width="130" class="light-logo" /> </td>
+      <td width="33%">ECO LIMP LTDA.</td>
       <td width="17%"><strong>N° Registro:</strong></td>
       <td width="30%">{{ $ingreso->codigo }}</td>
    </tr>
    <tr>
-      <td>253.256.369-5</td>
+      <td><strong>Rut:</strong> 78.954.050-0</td>
       <td><strong>Fecha de Ingreso:</strong></td>
       <td>{{ date('d-m-Y', strtotime($ingreso->fecha_emision)) }}</td>
    </tr>
    <tr>
-      <td>Calle Anonima 130, Antofogasta, Chile</td>
-      <td><strong>Ingresado por:</strong></td>
+      <td><strong>Dirección:</strong> PEDRO FONTOVA 3726,</td>
+      <td><strong>Resp. Registro:</strong></td>
       <td>{{ $ingreso->usuario_creador->name }}</td>
    </tr>
    <tr>
-      <td>Teléfono: 043256982</td>
+      <td>CONCHALI, CHILE</td>
       <td><strong>Documento:</strong></td>
       <td>{{ $ingreso->tipodoc }}: {{ $ingreso->nrodoc }}</td>
+   </tr>
+   <tr>
+      <td><strong>Teléfono:</strong> S/N</td>
+      <td><strong>Estado de Pago</strong> </td>
+      <td>{{ $ingreso->estado_pago }}</td>
+   </tr>
+   <tr>
+      <td></td>
+      <td><strong>Fecha de Pago</strong> </td>
+      <td>{{ isset($ingreso->fecha_pago) ? date('d-m-Y', strtotime($ingreso->fecha_pago)) : '-----------' }}</td>
+   </tr>
+   <tr>
+      <td></td>
+      <td><strong>Condición de Pago</strong> </td>
+      <td>{{ $ingreso->condiciones_pago() }}</td>
    </tr>
 </table>
 
@@ -94,40 +109,46 @@
       <td colspan="2" width="50%" class="proveedor"><strong>Datos del Contacto</strong></td>
    </tr>
    <tr>
-      <td width="20%" style="padding-top: 15px"><strong>Nombre:</strong></td>
-      <td width="30%" style="padding-top: 15px">{{ $ingreso->proveedor->nombre }}</td>
-      <td width="20%" style="padding-top: 15px"><strong>Nombre:</strong></td>
-      <td width="30%" style="padding-top: 15px">{{ $ingreso->proveedor->nom_contacto }}</td>
+      <td width="20%" style="padding-top: 15px; padding-left: 5px"><strong>Nombre:</strong></td>
+      <td width="30%" style="padding-top: 15px; padding-right: 5px">{{ $ingreso->proveedor->nombre }}</td>
+      <td width="20%" style="padding-top: 15px; padding-left: 5px"><strong>Nombre:</strong></td>
+      <td width="30%" style="padding-top: 15px; padding-right: 5px">{{ $ingreso->proveedor->nom_contacto }}</td>
    </tr>
    <tr>
-      <td width="20%"><strong>Nombre Fantasia:</strong></td>
-      <td width="30%">{{ $ingreso->proveedor->nom_fantasia }}</td>
-      <td width="20%"><strong>RUT:</strong></td>
-      <td width="30%">{{ $ingreso->proveedor->nrodoc_contacto }}</td>
+      <td width="20%" style="padding-left: 5px"><strong>Nombre Fantasia:</strong></td>
+      <td width="30%" style="padding-right: 5px">{{ $ingreso->proveedor->nom_fantasia }}</td>
+      <td width="20%" style="padding-left: 5px"><strong>RUT:</strong></td>
+      <td width="30%" style="padding-right: 5px">{{ $ingreso->proveedor->nrodoc_contacto }}</td>
    </tr>
    <tr>
-      <td width="20%"><strong>RUT:</strong></td>
-      <td width="30%">{{ $ingreso->proveedor->nrodoc }}</td>
-      <td width="20%"><strong>Celular:</strong></td>
-      <td width="30%">{{ $ingreso->proveedor->cel_contacto }}</td>
+      <td width="20%" style="padding-left: 5px"><strong>RUT:</strong></td>
+      <td width="30%" style="padding-right: 5px">{{ $ingreso->proveedor->nrodoc }}</td>
+      <td width="20%" style="padding-left: 5px"><strong>Celular:</strong></td>
+      <td width="30%" style="padding-right: 5px">{{ $ingreso->proveedor->cel_contacto }}</td>
    </tr>
    <tr>
-      <td width="20%"><strong>Telefono:</strong></td>
-      <td width="30%">{{ $ingreso->proveedor->telefono }}</td>
-      <td width="20%"><strong>Email:</strong></td>
-      <td width="30%">{{ $ingreso->proveedor->email_contacto }}</td>
+      <td width="20%" style="padding-left: 5px"><strong>Telefono:</strong></td>
+      <td width="30%" style="padding-right: 5px">{{ $ingreso->proveedor->telefono }}</td>
+      <td width="20%" style="padding-left: 5px"><strong>Email:</strong></td>
+      <td width="30%" style="padding-right: 5px">{{ $ingreso->proveedor->email_contacto }}</td>
    </tr>
    <tr>
-      <td width="20%"><strong>Email:</strong></td>
-      <td width="30%">{{ $ingreso->proveedor->email }}</td>
-      <td width="20%"></td>
-      <td width="30%"></td>
+      <td width="20%" style="padding-left: 5px"><strong>Email:</strong></td>
+      <td width="30%" style="padding-right: 5px">{{ $ingreso->proveedor->email }}</td>
+      <td width="20%" style="padding-left: 5px"></td>
+      <td width="30%" style="padding-right: 5px"></td>
    </tr>
    <tr>
-      <td width="20%"><strong>Dirección:</strong></td>
-      <td width="30%">{{ $ingreso->proveedor->direccion }} - {{ $ingreso->proveedor->region->nombre }}, {{ $ingreso->proveedor->provincia->nombre }}, {{ $ingreso->proveedor->comuna->nombre }}</td>
-      <td width="20%"></td>
-      <td width="30%"></td>
+      <td width="20%" style="padding-left: 5px"><strong>Dirección:</strong></td>
+      <td width="30%" style="padding-right: 5px">{{ $ingreso->proveedor->direccion }},</td>
+      <td width="20%" style="padding-left: 5px"></td>
+      <td width="30%" style="padding-right: 5px"></td>
+   </tr>
+   <tr>
+      <td width="20%" style="padding-left: 5px"></td>
+      <td width="30%" style="padding-right: 5px">{{ $ingreso->proveedor->comuna->nombre }}, CHILE</td>
+      <td width="20%" style="padding-left: 5px"></td>
+      <td width="30%" style="padding-right: 5px"></td>
    </tr>
 </table>
 

@@ -39,18 +39,19 @@ class IngresoController extends Controller
       $proveedores = [];
       foreach ($proveedor_buscado as $proveedor) {
          $proveedores[] = [
-            "id_proveedor"  => $proveedor->id,
-            "nom_proveedor" => $proveedor->nombre,
-            "nom_fantasia"  => $proveedor->nom_fantasia,
-            "rut_proveedor" => $proveedor->nrodoc,
-            "tel_proveedor" => $proveedor->telefono,
-            "dir_proveedor" => $proveedor->direccion,
-            "nom_contacto"  => $proveedor->nom_contacto,
-            "rut_contacto"  => $proveedor->nrodoc_contacto,
-            "cel_contacto"  => $proveedor->cel_contacto,
-            "region"        => $proveedor->region,
-            "provincia"     => $proveedor->provincia,
-            "comuna"        => $proveedor->comuna
+            "id_proveedor"    => $proveedor->id,
+            "nom_proveedor"   => $proveedor->nombre,
+            "nom_fantasia"    => $proveedor->nom_fantasia,
+            "rut_proveedor"   => $proveedor->nrodoc,
+            "tel_proveedor"   => $proveedor->telefono,
+            "email_proveedor" => $proveedor->email,
+            "dir_proveedor"   => $proveedor->direccion,
+            "nom_contacto"    => $proveedor->nom_contacto,
+            "rut_contacto"    => $proveedor->nrodoc_contacto,
+            "cel_contacto"    => $proveedor->cel_contacto,
+            "region"          => $proveedor->region,
+            "provincia"       => $proveedor->provincia,
+            "comuna"          => $proveedor->comuna
          ];
       }
 
@@ -176,6 +177,15 @@ class IngresoController extends Controller
          $ingreso_entrada->whereRaw("date(ingresos.fecha_emision) >= '" . $fInicialBuscar . "' AND date(ingresos.fecha_emision) <= '" . $fFifnalBuscar . "'");
       }
 
+      // *********** BUSQUEDAS UNITARIAS - ESTADO DEL PAGO DEL INGRESO *****************
+      if (!empty($request->estpago_buscar)) {
+         $estPagoBuscar = $request->estpago_buscar;
+
+         $ingreso_entrada
+            ->where('ingresos.estado_pago', $estPagoBuscar)
+            ->get();
+      }
+
       // *******************************************************************************************
       // ********************** LLAMANDO AL DATATABLES *********************************************
       // *******************************************************************************************
@@ -232,7 +242,12 @@ class IngresoController extends Controller
          ->pluck('tipodoc', 'tipodoc')
          ->toArray();
 
-      return view('ingresos.index', compact('tipodocumento'));
+      $estado_pago = DB::table('ingresos')
+         ->select('ingresos.*')
+         ->pluck('estado_pago', 'estado_pago')
+         ->toArray();
+
+      return view('ingresos.index', compact('tipodocumento', 'estado_pago'));
    }
 
    /**
@@ -242,24 +257,7 @@ class IngresoController extends Controller
     */
    public function create()
    {
-      $proveedor = DB::table('proveedores')
-         ->where([
-            ['proveedores.estado', '1'],
-            ['proveedores.deleted_at', null]
-         ])
-         ->pluck('nombre', 'id')
-         ->toArray();
-
-      $ingreso = Ingreso::all();
-
-      if ($ingreso->isEmpty()) {
-         $num_registro = 'RM-1';
-      } else {
-         $ultimo_id    = Ingreso::latest('id')->first();
-         $num_registro = 'RM-' . ($ultimo_id->id + 1);
-      }
-
-      return view('ingresos.create', compact('proveedor', 'num_registro'));
+      return view('ingresos.create');
    }
 
    /**
@@ -279,7 +277,7 @@ class IngresoController extends Controller
             'tipodoc_ingreso'    => 'required',
             'nrodoc_ingreso'     => 'required',
             'fec_emision'        => 'required',
-            'observaciones'      => 'nullable|max:200',
+            'observaciones'      => 'required|max:200',
 
             'producto_id.*'      => 'required',
             'producto_ingreso.*' => 'required',
@@ -295,15 +293,17 @@ class IngresoController extends Controller
 
          $ingreso                 = new Ingreso();
          $ingreso->proveedores_id = $request->id_proveedor;
-         $ingreso->codigo         = $request->cod_ingreso;
          $ingreso->tipodoc        = $request->tipodoc_ingreso;
          $ingreso->nrodoc         = strtoupper($request->nrodoc_ingreso);
          $ingreso->observaciones  = strtoupper($request->observaciones);
          $ingreso->fecha_emision  = date('Y-m-d', strtotime($request->fec_emision));
+         $ingreso->estado_pago    = 'PENDIENTE';
          $ingreso->creado_por     = Auth()->user()->id;
+         $ingreso->recibido_por   = strtoupper($request->resp_recibio);
          $ingreso->save();
 
-         // $id_ingreso = $ingreso->id;
+         $ingreso->codigo = 'RM-' . $ingreso->id;
+         $ingreso->save();
 
          $contador = count(collect($request->cantidad_ingreso));
 
@@ -408,6 +408,9 @@ class IngresoController extends Controller
             'id_proveedor'       => 'required',
             'tipodoc_ingreso'    => 'required',
             'nrodoc_ingreso'     => 'required',
+            'estado_pago'        => 'required',
+            'fecha_pago'         => 'sometimes|required',
+            'condicion_pago'     => 'required',
             'fec_emision'        => 'required',
             'observaciones'      => 'nullable|max:200',
 
@@ -430,11 +433,18 @@ class IngresoController extends Controller
          $ingreso->nrodoc         = strtoupper($request->nrodoc_ingreso);
          $ingreso->observaciones  = strtoupper($request->observaciones);
          $ingreso->fecha_emision  = date('Y-m-d', strtotime($request->fec_emision));
+         if ($request->fecha_pago == '') {
+            $ingreso->fecha_pago = null;
+         } else {
+            $ingreso->fecha_pago = date('Y-m-d', strtotime($request->fecha_pago));
+         }
+         $ingreso->estado_pago    = strtoupper($request->estado_pago);
+         $ingreso->condicion_pago = strtoupper($request->condicion_pago);
          $ingreso->editado_por    = Auth()->user()->id;
          $ingreso->save();
 
          $contador = count(collect($request->cantidad_ingreso));
-         // dd($request->mvproducto_id);
+
          for ($i = 0; $i < $contador; $i++) {
 
             $total[$i] = ((float) $request->cantidad_ingreso[$i] * (float) $request->precio_unitario[$i]);
@@ -531,7 +541,7 @@ class IngresoController extends Controller
 
       $pdf = app('dompdf.wrapper');
       $pdf->loadView('ingresos.impresion', compact('ingreso', 'mov_productos'));
-      return $pdf->download('RM00' . $ingreso->id . '.pdf');
+      return $pdf->download('RM-' . $ingreso->id . '.pdf');
 
    }
 }

@@ -4,27 +4,27 @@
       <div class="card card-border">
          <div class="card-body row">
 
-            <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-2 mt-2">
-               {!! Html::decode(Form::label('cod_salida', 'Código', ['class' => 'font-weight-bold mt-2'])) !!}
+            <div class="col-12 col-sm-6 col-md-6 col-lg-2 col-xl-2 mt-1">
+               {!! Html::decode(Form::label('cod_salida', 'N° Registro', ['class' => 'font-weight-bold mt-1'])) !!}
                {!! Form::text('cod_salida', isset($salida) ? $salida->codigo : '', ['class' => 'form-control', 'placeholder' => 'CÓDIGO SALIDA', 'id' => 'cod_salida', 'readonly']) !!}
                <div class="text-danger py-0 mb-0 mt-1 d-none font-alert" id="cod_salida-error"></div>
             </div>
 
-            <div class="col-12 col-sm-6 col-md-6 col-lg-8 col-xl-4 mt-2" id="nomcc_typeahead">
-               {!! Html::decode(Form::label('nomcc', 'Nombre del C.C. <span class="text-danger font-weight-normal h6 ml-1">*</span>', ['class' => 'font-weight-bold mt-2'])) !!}
+            <div class="col-12 col-sm-6 col-md-6 col-lg-5 col-xl-5 mt-1" id="nomcc_typeahead">
+               {!! Html::decode(Form::label('nomcc', 'Nombre del C.C. <span class="text-danger font-weight-normal h6 ml-1">*</span>', ['class' => 'font-weight-bold mt-1'])) !!}
                {!! Form::text('nom_cc', isset($salida) ? $salida->instalacion->nombre : '', ['class' => 'form-control', 'placeholder' => 'NOMBRE DEL C.C.', 'id' => 'nom_cc']) !!}
                {!! Form::hidden('id_cc', isset($salida) ? $salida->instalacion->id : '', ['id' => 'id_cc', 'readonly']) !!}
                <div class="text-danger py-0 mb-0 mt-1 d-none font-alert" id="nom_cc-error"></div>
             </div>
 
             {{-- *************************** CAMPOS AUTORELLENADOS - CENTROS DE COSTO ******************************* --}}
-            <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 mt-2">
-               {!! Html::decode(Form::label('nom_fantasia', 'Nombre Fantasia C.C.', ['class' => 'font-weight-bold mt-2'])) !!}
+            <div class="col-12 col-sm-6 col-md-6 col-lg-5 col-xl-5 mt-1">
+               {!! Html::decode(Form::label('nom_fantasia', 'Nombre Fantasia C.C.', ['class' => 'font-weight-bold mt-1'])) !!}
                {!! Form::text('nom_fantasia', isset($salida) ? $salida->instalacion->nom_fantasia : '', ['class' => 'form-control', 'placeholder' => 'NOMBRE FANTASIA C.C.', 'id' => 'nom_fantasia', 'readonly']) !!}
             </div>
 
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
-               {!! Html::decode(Form::label('nrodoc', 'RUT C.C.', ['class' => 'font-weight-bold mt-2'])) !!}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-1">
+               {!! Html::decode(Form::label('nrodoc', 'RUT C.C.', ['class' => 'font-weight-bold mt-1'])) !!}
                <div class="input-group">
                   {!! Form::text('rut_cc', isset($salida) ? $salida->instalacion->nrodoc : '', ['class' => 'form-control', 'placeholder' => 'RUT DEL C.C.','id' => 'rut_cc', 'readonly']) !!}
                   <div class="input-group-text">
@@ -33,8 +33,8 @@
                </div>
             </div>
 
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
-               {!! Html::decode(Form::label('tel_cc', 'Teléfono C.C.', ['class' => 'font-weight-bold mt-2'])) !!}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-1">
+               {!! Html::decode(Form::label('tel_cc', 'Teléfono C.C.', ['class' => 'font-weight-bold mt-1'])) !!}
                <div class="input-group">
                   {!! Form::text('tel_cc', isset($salida) ? $salida->instalacion->telefono : '', ['class' => 'form-control', 'placeholder' => 'TELÉFONO C.C.', 'id' => 'tel_cc', 'readonly']) !!}
                   <div class="input-group-text">
@@ -43,33 +43,43 @@
                </div>
             </div>
 
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
-               {!! Html::decode(Form::label('region', 'Región', ['class' => 'font-weight-bold mt-2'])) !!}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-6 mt-1">
+               {!! Html::decode(Form::label('email', 'Email:', ['class' => 'font-weight-bold mt-1'])) !!}
+               <div class="input-group">
+                  {!! Form::text('email_cc', isset($salida) ? $salida->instalacion->email : '', ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'EMAIL', 'id' => 'email_cc', 'readonly']) !!}
+                  <div class="input-group-text">
+                     <i class="fas fa-at"></i>
+                  </div>
+               </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-4 mt-1">
+               {!! Html::decode(Form::label('region', 'Región', ['class' => 'font-weight-bold mt-1'])) !!}
                {!! Form::text('region', isset($salida) ? $salida->instalacion->region->nombre : '', ['class' => 'form-control', 'placeholder' => 'REGIÓN', 'id' => 'region', 'readonly']) !!}
             </div>
 
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
-               {!! Html::decode(Form::label('provincia', 'Provincia', ['class' => 'font-weight-bold mt-2'])) !!}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-4 mt-1">
+               {!! Html::decode(Form::label('provincia', 'Provincia', ['class' => 'font-weight-bold mt-1'])) !!}
                {!! Form::text('provincia', isset($salida) ? $salida->instalacion->provincia->nombre : '', ['class' => 'form-control', 'placeholder' => 'PROVINCIA', 'id' => 'provincia', 'readonly']) !!}
             </div>
 
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
-               {!! Html::decode(Form::label('comuna', 'Comuna', ['class' => 'font-weight-bold mt-2'])) !!}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-4 mt-1">
+               {!! Html::decode(Form::label('comuna', 'Comuna', ['class' => 'font-weight-bold mt-1'])) !!}
                {!! Form::text('comuna', isset($salida) ? $salida->instalacion->comuna->nombre : '', ['class' => 'form-control', 'placeholder' => 'COMUNA', 'id' => 'comuna', 'readonly']) !!}
             </div>
 
-            <div class="col-12 col-sm-6 col-lg-7 col-xl-5 mt-2">
-               {!! Html::decode(Form::label('direccion', 'Dirección', ['class' => 'font-weight-bold mt-2'])) !!}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-6 mt-1">
+               {!! Html::decode(Form::label('direccion', 'Dirección', ['class' => 'font-weight-bold mt-1'])) !!}
                {!! Form::text('dir_cc', isset($salida) ? $salida->instalacion->direccion : '', ['class' => 'form-control', 'placeholder' => 'DIRECCIÓN', 'id' => 'dir_cc', 'readonly']) !!}
             </div>
 
-            <div class="col-12 col-sm-6 col-lg-5 col-xl-4 mt-2">
-               {!! Html::decode(Form::label('nom_contacto', 'Nombre Contacto', ['class' => 'font-weight-bold mt-2'])) !!}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-6 mt-1">
+               {!! Html::decode(Form::label('nom_contacto', 'Nombre Contacto', ['class' => 'font-weight-bold mt-1'])) !!}
                {!! Form::text('nom_contacto', isset($salida) ? $salida->instalacion->nom_contacto : '', ['class' => 'form-control', 'placeholder' => 'NOMBRE CONTACTO', 'id' => 'nom_contacto', 'readonly']) !!}
             </div>
 
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
-               {!! Html::decode(Form::label('nro_contacto', 'RUT Contacto', ['class' => 'font-weight-bold mt-2'])) !!}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-1">
+               {!! Html::decode(Form::label('nro_contacto', 'RUT Contacto', ['class' => 'font-weight-bold mt-1'])) !!}
                <div class="input-group">
                   {!! Form::text('rut_contacto', isset($salida) ? $salida->instalacion->nrodoc_contacto : '', ['class' => 'form-control', 'placeholder' => 'RUT CONTACTO', 'id' => 'rut_contacto', 'readonly']) !!}
                   <div class="input-group-text">
@@ -78,8 +88,8 @@
                </div>
             </div>
 
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
-               {!! Html::decode(Form::label('cel_contacto', 'Celular Contacto', ['class' => 'font-weight-bold mt-2'])) !!}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-1">
+               {!! Html::decode(Form::label('cel_contacto', 'Celular Contacto', ['class' => 'font-weight-bold mt-1'])) !!}
                <div class="input-group">
                   {!! Form::text('cel_contacto', isset($salida) ? $salida->instalacion->cel_contacto : '', ['class' => 'form-control', 'placeholder' => 'CELULAR CONTACTO', 'id' => 'cel_contacto', 'readonly']) !!}
                   <div class="input-group-text">
@@ -89,8 +99,8 @@
             </div>
             {{-- *************************** // CAMPOS AUTORELLENADOS - CENTROS DE COSTO ******************************* --}}
 
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
-               {!! Html::decode(Form::label('fecha_inicio', 'Fecha Inicio <span class="text-danger font-weight-normal h6 ml-1">*</span>', ['class' => 'font-weight-bold mt-2'])) !!}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-1">
+               {!! Html::decode(Form::label('fecha_inicio', 'Fecha Inicio <span class="text-danger font-weight-normal h6 ml-1">*</span>', ['class' => 'font-weight-bold mt-1'])) !!}
                <div class="input-group">
                   {!! Form::text('fecha_inicio', isset($salida) ? date('d-m-Y', strtotime($salida->fecha_inicial)) : '', ['class' => 'form-control input_blanco' , 'id' => 'fecha_inicio', 'autocomplete' => 'off', 'readonly', 'placeholder' => 'DD-MM-YYYY']) !!}
                   <div class="input-group-text">
@@ -100,8 +110,8 @@
                <div class="text-danger py-0 mb-0 mt-1 d-none font-alert" id="fecha_inicio-error"></div>
             </div>
 
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
-               {!! Html::decode(Form::label('fecha_fin', 'Fecha Fin <span class="text-danger font-weight-normal h6 ml-1">*</span>', ['class' => 'font-weight-bold mt-2'])) !!}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-1">
+               {!! Html::decode(Form::label('fecha_fin', 'Fecha Fin <span class="text-danger font-weight-normal h6 ml-1">*</span>', ['class' => 'font-weight-bold mt-1'])) !!}
                <div class="input-group">
                   {!! Form::text('fecha_fin', isset($salida) ? date('d-m-Y', strtotime($salida->fecha_final)) : '', ['class' => 'form-control input_blanco' , 'id' => 'fecha_fin', 'autocomplete' => 'off', 'readonly', 'placeholder' => 'DD-MM-YYYY']) !!}
                   <div class="input-group-text">
@@ -111,20 +121,26 @@
                <div class="text-danger py-0 mb-0 mt-1 d-none font-alert" id="fecha_fin-error"></div>
             </div>
 
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
-               {!! Html::decode(Form::label('usu_responsable', 'Usuario Creador', ['class' => 'font-weight-bold mt-2'])) !!}
-               {!! Form::text('usu_responsable', isset($salida->usuario_creador) ? $salida->usuario_creador->name : '', ['class' => 'form-control', 'placeholder' => 'RESPONSABLE', 'id' => 'usu_responsable', 'readonly']) !!}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-4 mt-1">
+               {!! Html::decode(Form::label('resp_registro', 'Resp. Registro', ['class' => 'font-weight-bold mt-1'])) !!}
+               {!! Form::text('resp_registro', isset($salida->usuario_creador) ? $salida->usuario_creador->name : '', ['class' => 'form-control', 'placeholder' => 'NOMBRE RESPONSABLE', 'id' => 'resp_registro', 'readonly']) !!}
             </div>
 
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-4 mt-2">
-               {!! Html::decode(Form::label('recibido_por', 'Recibido por', ['class' => 'font-weight-bold mt-2'])) !!}
-               {!! Form::text('recibido_por', isset($salida) ? $salida->recibido_por : '', ['class' => 'form-control letras', 'placeholder' => 'NOMBRES', 'autocomplete' => 'off', 'maxlength' => '50', 'id' => 'recibido_por']) !!}
-               <div class="text-danger py-0 mb-0 mt-1 d-none font-alert" id="recibido_por-error"></div>
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-4 mt-1">
+               {!! Html::decode(Form::label('resp_entrega', 'Resp. Entrega <span class="text-danger font-weight-normal h6 ml-1">*</span>', ['class' => 'font-weight-bold mt-1'])) !!}
+               {!! Form::text('resp_entrega', isset($salida) ? $salida->entregado_por : '', ['class' => 'form-control letras', 'placeholder' => 'NOMBRE RESPONSABLE', 'id' => 'resp_entrega']) !!}
+               <div class="text-danger py-0 mb-0 mt-1 d-none font-alert" id="resp_entrega-error"></div>
             </div>
 
-            <div class="col-12 col-lg-8 col-xl-8 mt-2">
-               {!! Html::decode(Form::label('observaciones', 'Observaciones', ['class' => 'font-weight-bold mt-2'])) !!}
-               {!! Form::textarea('observaciones', isset($salida) ? $salida->observaciones : '', ['class' => 'form-control alfanumerico', 'autocomplete' => 'off', 'rows' => '2', 'style' => 'resize:none', 'maxlength' => '100']) !!}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-4 mt-1">
+               {!! Html::decode(Form::label('resp_recibio', 'Resp. Recibió <span class="text-danger font-weight-normal h6 ml-1">*</span>', ['class' => 'font-weight-bold mt-1'])) !!}
+               {!! Form::text('resp_recibio', isset($salida) ? $salida->recibido_por : '', ['class' => 'form-control letras', 'placeholder' => 'NOMBRES', 'autocomplete' => 'off', 'maxlength' => '50', 'id' => 'resp_recibio']) !!}
+               <div class="text-danger py-0 mb-0 mt-1 d-none font-alert" id="resp_recibio-error"></div>
+            </div>
+
+            <div class="col-12 col-lg-12 col-xl-12 mt-1">
+               {!! Html::decode(Form::label('observaciones', 'Observaciones <span class="text-danger font-weight-normal h6 ml-1">*</span>', ['class' => 'font-weight-bold mt-1'])) !!}
+               {!! Form::textarea('observaciones', isset($salida) ? $salida->observaciones : '', ['class' => 'form-control alfanumerico', 'autocomplete' => 'off', 'rows' => '3', 'style' => 'resize:none', 'maxlength' => '100']) !!}
                <div class="text-danger py-0 mb-0 mt-1 d-none font-alert" id="observaciones-error"></div>
             </div>
 

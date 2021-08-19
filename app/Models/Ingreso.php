@@ -37,4 +37,28 @@ class Ingreso extends Model
       return $this->hasMany(MovimientoProducto::class, 'ingresos_id');
    }
 
+   public function condiciones_pago()
+   {
+      $condicion = $this->condicion_pago;
+
+      switch ($condicion) {
+         case 'CONTADO':
+            return 'CONTADO';
+            break;
+         case '30D':
+            return 'PAGO A 30 DIAS';
+            break;
+         case '60D':
+            return 'PAGO A 60 DIAS';
+            break;
+         case '90D':
+            return 'PAGO A 90 DIAS';
+            break;
+         case '':
+            return '-----------';
+            break;
+      }
+
+   }
+
 }

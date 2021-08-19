@@ -24,6 +24,7 @@ $(function () {
                d.num_registro = $('#num_registro').val();
                d.fecInicial_buscar = $('#fec_inicial').val();
                d.fecFinal_buscar = $('#fec_final').val();
+               d.estpago_buscar = $('#estpago_buscar').val();
             }
          },
          columns: [
@@ -58,11 +59,14 @@ $(function () {
                name: 'fecha_emision'
             },
             {
+               data: 'estado_pago',
+               name: 'estado_pago'
+            },
+            {
                data: 'sumTotal',
                name: 'sumTotal',
                render: $.fn.dataTable.render.number(',', '.', 2) // formateador numerico propio del datatable
             },
-
             {
                data: 'acciones',
                orderable: false,
@@ -104,8 +108,9 @@ $(function () {
          var nroregistro = $('#num_registro').val();
          var fecha_inicial = $('#fec_inicial').val();
          var fecha_final = $('#fec_final').val();
+         var est_pago = $('#estpago_buscar').val();
 
-         if (nomproveedor != '' || rutproveedor != '' || tipodoc != '' || nrodoc != '' || nroregistro != '' || fecha_inicial != '' || fecha_final != '') {
+         if (nomproveedor != '' || rutproveedor != '' || tipodoc != '' || nrodoc != '' || nroregistro != '' || fecha_inicial != '' || fecha_final != '' || est_pago != '') {
 
             if (nomproveedor != '') {
                $('#tabla_ingresos').DataTable().draw(true);
@@ -159,6 +164,10 @@ $(function () {
                   });
                }
             }
+
+            if (est_pago != '') {
+               $('#tabla_ingresos').DataTable().draw(true);
+            }
          }
          else {
             Swal.fire({
@@ -179,6 +188,7 @@ $(function () {
 
       $('#reiniciar').on('click', function () {
          $('#tipodoc_buscar').val('0').trigger('change');
+         $('#estpago_buscar').val('0').trigger('change');
          $('#nomproveedor_buscar').val('');
          $('#rutproveedor_buscar').val('');
          $('#nrodoc_buscar').val('');
@@ -196,6 +206,14 @@ $(function () {
    function events() {
 
       $('#tipodoc_buscar').select2({
+         width: '100%',
+         placeholder: "TODOS",
+         allowClear: true,
+         minimumResultsForSearch: -1,
+         language: "es",
+      });
+
+      $('#estpago_buscar').select2({
          width: '100%',
          placeholder: "TODOS",
          allowClear: true,

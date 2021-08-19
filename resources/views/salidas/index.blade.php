@@ -23,13 +23,25 @@ Entrega de Materiales
       <div class="card">
          <div class="card-body">
             <div class="row">
+
+               <div class="col-12 col-sm-6 col-xl-3">
+                  {!! Form::label('num_registro', 'N° Registro', ['class' => 'font-weight-bold mt-2']) !!}
+                  {!! Form::text('num_registro', null, ['class' => 'form-control alfanumerico', 'id' => 'num_registro', 'maxlength' => '9', 'autocomplete' => 'off', 'placeholder' => 'BUSCAR POR N° REGISTRO']) !!}
+               </div>
+
                <div class="col-12 col-sm-6 col-xl-3" id="nomcc_typeahead">
                   {!! Form::label('nom_cc', 'Nombre C.C.', ['class' => 'font-weight-bold mt-2']) !!}
-                  {!! Form::text('nomcc_buscar', null, ['class' => 'form-control letras', 'id' => 'nomcc_buscar', 'maxlength' => '9', 'autocomplete' => 'off']) !!}
+                  {!! Form::text('nomcc_buscar', null, ['class' => 'form-control letras', 'id' => 'nomcc_buscar', 'maxlength' => '9', 'autocomplete' => 'off', 'placeholder' => 'BUSCAR POR NOMBRE']) !!}
                </div>
+
                <div class="col-12 col-sm-6 col-xl-3" id="rutcc_typeahead">
                   {!! Form::label('ruccc', 'RUT C.C.', ['class' => 'font-weight-bold mt-2']) !!}
-                  {!! Form::text('rutcc_buscar', null, ['class' => 'form-control alfanumerico', 'id' => 'rutcc_buscar', 'maxlength' => '9', 'autocomplete' => 'off']) !!}
+                  {!! Form::text('rutcc_buscar', null, ['class' => 'form-control alfanumerico', 'id' => 'rutcc_buscar', 'maxlength' => '9', 'autocomplete' => 'off', 'placeholder' => 'BUSCAR POR RUT']) !!}
+               </div>
+
+               <div class="col-12 col-sm-6 col-xl-3" id="resp_entrega_typeahead">
+                  {!! Form::label('resp_entrega', 'Resp. Entrega', ['class' => 'font-weight-bold mt-2']) !!}
+                  {!! Form::text('resp_entrega_buscar', null, ['class' => 'form-control letras', 'id' => 'resp_entrega_buscar', 'maxlength' => '15', 'autocomplete' => 'off', 'placeholder' => 'BUSCAR POR NOMBRE']) !!}
                </div>
 
                <div class="col-12 col-xl-6">
@@ -54,12 +66,7 @@ Entrega de Materiales
                   </div>
                </div>
 
-               <div class="col-12 col-sm-6 col-xl-3">
-                  {!! Form::label('num_registro', 'N° Registro', ['class' => 'font-weight-bold mt-2']) !!}
-                  {!! Form::text('num_registro', null, ['class' => 'form-control alfanumerico', 'id' => 'num_registro', 'maxlength' => '9', 'autocomplete' => 'off']) !!}
-               </div>
-
-               <div class="col-9 d-flex justify-content-end align-items-end mt-4">
+               <div class="col-6 d-flex justify-content-end align-items-end mt-4">
                   <button class="btn btn-light-blue px-4 mr-2" id="buscar">
                      <i class="far fa-search mr-2"></i>Buscar
                   </button>
@@ -92,20 +99,21 @@ Entrega de Materiales
             <table id="tabla_salidas" class="table table-sm table-hover table-bordered text-nowrap font-table w-100">
                <thead>
                   <tr class="bg-light-blue">
-                     <th colspan="10" class="text-center py-3">
+                     <th colspan="11" class="text-center py-3">
                         <h4 class="font-weight-bold mb-0" style="color: #1f4173">ENTREGA DE MATERIALES REGISTRADOS</h4>
                      </th>
                   </tr>
                   <tr class="text-center bg-light-blue">
                      <th class="py-2" width="5%">Nº</th>
-                     <th class="py-2" width="10%">N° REGISTRO</th>
-                     <th class="py-2" width="23%">NOMBRE C.C.</th>
-                     <th class="py-2" width="12%">RUT C.C.</th>
+                     <th class="py-2" width="10%">REGISTRO</th>
+                     <th class="py-2" width="20%">NOMBRE C.C.</th>
+                     <th class="py-2" width="10%">RUT C.C.</th>
                      <th class="py-2" width="10%">TELÉFONO C.C.</th>
                      <th class="py-2" width="20%">DIRECCIÓN C.C.</th>
                      <th class="py-2" width="10%">FECHA ENTREGA</th>
-                     <th class="py-2" width="10%">ENTREGADO POR</th>
-                     <th class="py-2" width="10%">RECIBIDO POR</th>
+                     <th class="py-2" width="10%">RESP. REGISTRO</th>
+                     <th class="py-2" width="10%">RESP. ENTREGA</th>
+                     <th class="py-2" width="10%">RESP. RECIBIÓ</th>
                      <th class="py-2" width="10%">ACCIONES</th>
                   </tr>
                </thead>

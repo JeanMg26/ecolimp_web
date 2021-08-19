@@ -20,7 +20,8 @@ $(function () {
                d.nomproducto_buscar = $('#nomproducto_buscar').val();
                d.nomcc_buscar = $('#nomcc_buscar').val();
                d.rutcc_buscar = $('#rutcc_buscar').val();
-               d.entregado_por = $('#entregado_por').val();
+               d.resp_registro = $('#resp_registro').val();
+               d.resp_entrega = $('#resp_entrega').val();
                d.fecInicial_buscar = $('#fecha_inicio').val();
                d.fecFinal_buscar = $('#fecha_fin').val();
             }
@@ -61,12 +62,16 @@ $(function () {
                name: 'fechaEntrega'
             },
             {
-               data: 'repEntrega',
-               name: 'repEntrega'
+               data: 'respRegistro',
+               name: 'respRegistro'
             },
             {
-               data: 'resRecibo',
-               name: 'resRecibo'
+               data: 'respEntrega',
+               name: 'respEntrega'
+            },
+            {
+               data: 'respRecibo',
+               name: 'respRecibo'
             },
 
             {
@@ -106,11 +111,12 @@ $(function () {
          var nomproducto = $('#nomproducto_buscar').val();
          var nomcc = $('#nomcc_buscar').val();
          var rutcc = $('#rutcc_buscar').val();
-         var responsable = $('#entregado_por').val();
+         var resp_registro = $('#resp_registro').val();
+         var resp_entrega = $('#resp_entrega').val();
          var fecha_inicial = $('#fecha_inicio').val();
          var fecha_final = $('#fecha_fin').val();
 
-         if (nomproducto != '' || codproducto != '' || nomcc != '' || rutcc != '' || responsable != '' || fecha_inicial != '' || fecha_final != '') {
+         if (nomproducto != '' || codproducto != '' || nomcc != '' || rutcc != '' || resp_registro != '' || resp_entrega != '' || fecha_inicial != '' || fecha_final != '') {
 
             if (nomproducto != '') {
                $('#tabla_consultas').DataTable().draw(true);
@@ -128,7 +134,11 @@ $(function () {
                $('#tabla_consultas').DataTable().draw(true);
             }
 
-            if (responsable != '') {
+            if (resp_registro != '') {
+               $('#tabla_consultas').DataTable().draw(true);
+            }
+
+            if (resp_entrega != '') {
                $('#tabla_consultas').DataTable().draw(true);
             }
 
@@ -181,9 +191,10 @@ $(function () {
       $('#reiniciar').on('click', function () {
          $('#codproducto_buscar').val('');
          $('#nomproducto_buscar').val('');
+         $('#resp_entrega').val('');
          $('#nomcc_buscar').val('');
          $('#rutcc_buscar').val('');
-         $('#entregado_por').val('').trigger('change');
+         $('#resp_registro').val('').trigger('change');
          $('#fecha_inicio').val('');
          $('#fecha_fin').val('');
          $('#tabla_consultas').DataTable().draw(true);
@@ -198,7 +209,7 @@ $(function () {
 
    function events() {
 
-      $("#entregado_por").select2({
+      $("#resp_registro").select2({
          width: "100%",
          placeholder: "TODOS",
          minimumResultsForSearch: -1,

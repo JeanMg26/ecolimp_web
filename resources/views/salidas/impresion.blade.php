@@ -66,24 +66,29 @@
 
 <table width="100%">
    <tr>
-      <td class="imagen" rowspan="4" width="25%"><img src="{{ asset('img/ecolimp.png') }}" alt="homepage" width="150" class="light-logo" /> </td>
-      <td width="35%">ECOLIMP - SISTEMA DE LIMPIEZA</td>
+      <td class="imagen" rowspan="5" width="25%"><img src="{{ asset('img/ecolimp.png') }}" alt="homepage" width="150" class="light-logo" /> </td>
+      <td width="35%">ECO LIMP LTDA.</td>
       <td width="15%"><strong>N° Registro:</strong></td>
       <td width="25%">{{ $salida->codigo }}</td>
    </tr>
    <tr>
-      <td>253.256.369-5</td>
+      <td><strong>Rut:</strong> 78.954.050-0</td>
       <td width="15%"><strong>Fecha Validez:</strong></td>
       <td width="25%">{{ date('d-m-Y', strtotime($salida->fecha_inicial)) }} - {{ date('d-m-Y', strtotime($salida->fecha_final)) }}</td>
    </tr>
    <tr>
-      <td>Calle Anonima 130, Antofogasta, Chile</td>
-      <td><strong>Entregado por:</strong></td>
+      <td><strong>Dirección:</strong> PEDRO FONTOVA 3726,</td>
+      <td><strong>Resp. Registró:</strong></td>
       <td>{{ $salida->usuario_creador->name }}</td>
    </tr>
    <tr>
-      <td>Teléfono: 043256982</td>
-      <td><strong>Recibido por:</strong></td>
+      <td>CONCHALI, CHILE</td>
+      <td><strong>Resp. Entregó:</strong></td>
+      <td>{{ $salida->entregado_por }}</td>
+   </tr>
+   <tr>
+      <td><strong>Teléfono:</strong> S/N</td>
+      <td><strong>Resp. Recibió:</strong></td>
       <td>{{ $salida->recibido_por }}</td>
    </tr>
 </table>
@@ -104,41 +109,53 @@
       <td colspan="2" width="50%" class="instalacion"><strong>Datos del Contacto</strong></td>
    </tr>
    <tr>
-      <td width="20%" style="padding-top: 15px"><strong>Nombre:</strong></td>
-      <td width="30%" style="padding-top: 15px">{{ $salida->instalacion->nombre }}</td>
-      <td width="20%" style="padding-top: 15px"><strong>Nombre:</strong></td>
-      <td width="30%" style="padding-top: 15px">{{ $salida->instalacion->nom_contacto }}</td>
+      <td width="20%" style="padding-top: 15px; padding-left: 5px"><strong>Nombre:</strong></td>
+      <td width="30%" style="padding-top: 15px; padding-right: 5px">{{ $salida->instalacion->nombre }}</td>
+      <td width="20%" style="padding-top: 15px; padding-left: 5px"><strong>Nombre:</strong></td>
+      <td width="30%" style="padding-top: 15px; padding-right: 5px">{{ $salida->instalacion->nom_contacto }}</td>
    </tr>
    <tr>
-      <td width="20%"><strong>Nombre Fantasia:</strong></td>
-      <td width="30%">{{ $salida->instalacion->nom_fantasia }}</td>
-      <td width="20%"><strong>RUT:</strong></td>
-      <td width="30%">{{ $salida->instalacion->nrodoc_contacto }}</td>
+      <td width="20%" style="padding-left: 5px"><strong>Nombre Fantasia:</strong></td>
+      <td width="30%" style="padding-right: 5px">{{ $salida->instalacion->nom_fantasia }}</td>
+      <td width="20%" style="padding-left: 5px"><strong>RUT:</strong></td>
+      <td width="30%" style="padding-right: 5px">{{ $salida->instalacion->nrodoc_contacto }}</td>
    </tr>
    <tr>
-      <td width="20%"><strong>RUT:</strong></td>
-      <td width="30%">{{ $salida->instalacion->nrodoc }}</td>
-      <td width="20%"><strong>Celular:</strong></td>
-      <td width="30%">{{ $salida->instalacion->cel_contacto }}</td>
+      <td width="20%" style="padding-left: 5px"><strong>RUT:</strong></td>
+      <td width="30%" style="padding-right: 5px">{{ $salida->instalacion->nrodoc }}</td>
+      <td width="20%" style="padding-left: 5px"><strong>Celular:</strong></td>
+      <td width="30%" style="padding-right: 5px">{{ $salida->instalacion->cel_contacto }}</td>
    </tr>
    <tr>
-      <td width="20%"><strong>Telefono:</strong></td>
-      <td width="30%">{{ $salida->instalacion->telefono }}</td>
-      <td width="20%"><strong>Email:</strong></td>
-      <td width="30%">{{ $salida->instalacion->email_contacto }}</td>
+      <td width="20%" style="padding-left: 5px"><strong>Telefono:</strong></td>
+      <td width="30%" style="padding-right: 5px">{{ $salida->instalacion->telefono }}</td>
+      <td width="20%" style="padding-left: 5px"><strong>Email:</strong></td>
+      <td width="30%" style="padding-right: 5px">{{ $salida->instalacion->email_contacto }}</td>
    </tr>
    <tr>
-      <td width="20%"><strong>Email:</strong></td>
-      <td width="30%">{{ $salida->instalacion->email }}</td>
-      <td width="20%"></td>
-      <td width="30%"></td>
+      <td width="20%" style="padding-left: 5px"><strong>Email:</strong></td>
+      <td width="30%" style="padding-right: 5px">{{ $salida->instalacion->email }}</td>
+      <td width="20%" style="padding-left: 5px"></td>
+      <td width="30%" style="padding-right: 5px"></td>
    </tr>
    <tr>
-      <td width="20%"><strong>Dirección:</strong></td>
-      <td width="30%">{{ $salida->instalacion->direccion }} - {{ $salida->instalacion->region->nombre }}, {{ $salida->instalacion->provincia->nombre }}, {{ $salida->instalacion->comuna->nombre }}</td>
-      <td width="20%"></td>
-      <td width="30%"></td>
+      <td width="20%" style="padding-left: 5px"><strong>Dirección:</strong></td>
+      <td width="30%" style="padding-right: 5px">{{ $salida->instalacion->direccion }},</td>
+      <td width="20%" style="padding-left: 5px"></td>
+      <td width="30%" style="padding-right: 5px"></td>
    </tr>
+   <tr>
+      <td width="20%" style="padding-left: 5px"></td>
+      <td width="30%" style="padding-right: 5px">{{ $salida->instalacion->comuna->nombre }}, CHILE</td>
+      <td width="20%" style="padding-left: 5px"></td>
+      <td width="30%" style="padding-right: 5px"></td>
+   </tr>
+
+
+
+
+
+
 </table>
 
 <div style="padding-top: 15px">
@@ -193,7 +210,7 @@
       <td width="50%" style="text-align: center">_________________________</td>
    </tr>
    <tr>
-      <td width="50%" style="text-align: center"><strong>{{ $salida->usuario_creador->name }}</strong></td>
+      <td width="50%" style="text-align: center"><strong>{{ $salida->entregado_por }}</strong></td>
       <td width="50%" style="text-align: center"><strong>{{ $salida->recibido_por }}</strong></td>
    </tr>
    <tr>

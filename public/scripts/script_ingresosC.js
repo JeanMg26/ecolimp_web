@@ -34,6 +34,22 @@ $(function () {
          language: "es",
       });
 
+      $('#estado_pago').select2({
+         width: '100%',
+         placeholder: "SELECCIONAR...",
+         allowClear: true,
+         minimumResultsForSearch: -1,
+         language: "es",
+      });
+
+      $('#condicion_pago').select2({
+         width: '100%',
+         placeholder: "SELECCIONAR...",
+         allowClear: true,
+         minimumResultsForSearch: -1,
+         language: "es",
+      });
+
       // ********** DATEPICKER *******************/
       $('#fec_emision').datepicker({
          'format': 'dd-mm-yyyy',
@@ -230,6 +246,7 @@ $(function () {
             $('#nom_fantasia').val(outerData[data]['nom_fantasia']);
             $('#rut_proveedor').val(outerData[data]['rut_proveedor']);
             $('#tel_proveedor').val(outerData[data]['tel_proveedor']);
+            $('#email_proveedor').val(outerData[data]['email_proveedor']);
             $('#dir_proveedor').val(outerData[data]['dir_proveedor']);
             $('#nom_contacto').val(outerData[data]['nom_contacto']);
             $('#rut_contacto').val(outerData[data]['rut_contacto']);
@@ -343,6 +360,18 @@ $(function () {
             } else {
                $("#fec_emision-error").removeClass("d-none");
                $("#fec_emision").addClass("is-invalid");
+            }
+         }
+      });
+
+      $("#observaciones").on("keyup", function () {
+         if ($("#observaciones-error").text() != "") {
+            if ($(this).val().length) {
+               $("#observaciones-error").addClass("d-none");
+               $("#observaciones").removeClass("is-invalid");
+            } else {
+               $("#observaciones-error").removeClass("d-none");
+               $("#observaciones").addClass("is-invalid");
             }
          }
       });
@@ -469,6 +498,13 @@ $(function () {
                      $('#fec_emision-error').html(data.errors.fec_emision[0]);
                   }
 
+                  if (data.errors.observaciones) {
+                     $('#observaciones-error').removeClass('d-none');
+                     $('#observaciones').addClass('is-invalid');
+                     $('#observaciones-error').html(data.errors.observaciones[0]);
+                  }
+
+
                   // ********** VALIDACIONES ARRAY *************
 
                   for (c = 0; c <= i; c++) {
@@ -510,6 +546,7 @@ $(function () {
                if (data.success) {
 
                   Swal.fire({
+                     title: 'Registro: RM-' + data.success,
                      text: "¿Desea imprimir el nuevo ingreso?",
                      icon: "success",
                      showCancelButton: true,

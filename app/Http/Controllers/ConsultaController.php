@@ -126,13 +126,13 @@ class ConsultaController extends Controller
             ->get();
       }
 
-      // *********** BUSQUEDAS UNITARIAS - RESPONSABLE DE ENTREGA *****************
-      if (!empty($request->entregado_por)) {
-         $resEntregaBuscar = $request->entregado_por;
+      // *********** BUSQUEDAS UNITARIAS - RESPONSABLE DE REGISTRO *****************
+      if (!empty($request->resp_registro)) {
+         $respRegistroBuscar = $request->resp_registro;
 
          $salida_entrada
             ->leftjoin('salidas as s3', 's3.id', '=', 'movimiento_productos.salidas_id')
-            ->where('s3.creado_por', 'LIKE', '%' . $resEntregaBuscar . '%')
+            ->where('s3.creado_por', $respRegistroBuscar)
             ->get();
       }
 
@@ -143,9 +143,18 @@ class ConsultaController extends Controller
 
          $salida_entrada
             ->leftjoin('salidas as s4', 's4.id', '=', 'movimiento_productos.salidas_id')
-            // ->whereRaw("date(s4.fecha_inicial) >= '" . $fInicialBuscar . "' AND date(s4.fecha_inicial) <= '" . $fFifnalBuscar . "'");
             ->whereDate('s4.fecha_inicial', '>=', $fInicialBuscar)
             ->whereDate('s4.fecha_inicial', '<=', $fFifnalBuscar);
+      }
+
+      // *********** BUSQUEDAS UNITARIAS - RESPONSABLE DE ENTREGA *****************
+      if (!empty($request->resp_entrega)) {
+         $respEntregaBuscar = $request->resp_entrega;
+
+         $salida_entrada
+            ->leftjoin('salidas as s5', 's5.id', '=', 'movimiento_productos.salidas_id')
+            ->where('s5.entregado_por', 'LIKE', '%' . $respEntregaBuscar . '%')
+            ->get();
       }
 
       // *******************************************************************************************
@@ -157,7 +166,7 @@ class ConsultaController extends Controller
          ->leftjoin('users as us', 'us.id', '=', 's.creado_por')
          ->leftjoin('instalaciones as ins', 'ins.id', '=', 's.instalaciones_id')
          ->leftjoin('productos as p', 'p.id', '=', 'movimiento_productos.productos_id')
-         ->select('p.codigo as codProducto', 'p.nombre as nomProducto', 'p.presentacion as presProducto', 'movimiento_productos.cantidad as canProducto', 'ins.nombre as nomCentroCosto', 'ins.nrodoc as rutCentroCosto', 's.fecha_inicial as fechaEntrega', 's.recibido_por as resRecibo', 'us.name as repEntrega', 'movimiento_productos.id as idMovProducto')
+         ->select('p.codigo as codProducto', 'p.nombre as nomProducto', 'p.presentacion as presProducto', 'movimiento_productos.cantidad as canProducto', 'ins.nombre as nomCentroCosto', 'ins.nrodoc as rutCentroCosto', 's.fecha_inicial as fechaEntrega', 's.recibido_por as respRecibo', 's.entregado_por as respEntrega', 'us.name as respRegistro', 'movimiento_productos.id as idMovProducto')
          ->where([
             ['movimiento_productos.deleted_at', null],
             ['s.deleted_at', null]
@@ -187,13 +196,13 @@ class ConsultaController extends Controller
     */
    public function index()
    {
-      $entregado_por = DB::table('salidas as s')
+      $registrador = DB::table('salidas as s')
          ->leftjoin('users as us', 'us.id', '=', 's.creado_por')
          ->select('us.id as iduser', 'us.name as usuario')
          ->pluck('usuario', 'iduser')
          ->toArray();
 
-      return view('consultas.index', compact('entregado_por'));
+      return view('consultas.index', compact('registrador'));
    }
 
    /**

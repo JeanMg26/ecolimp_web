@@ -1,5 +1,13 @@
 $(function () {
 
+   var est_pago = $('#estado_pago').val();
+
+   if (est_pago == 'PAGADO') {
+      $('#fecha_pago').attr('disabled', false);
+      $('#fecha_pago').addClass('input_blanco');
+      $('#fecha_pago').attr('name', 'fecha_pago');
+   }
+
    function init() {
 
       events();
@@ -13,7 +21,39 @@ $(function () {
 
    function events() {
 
+      $('#estado_pago').on('change', function () {
+         var valor = $(this).val();
+
+         if (valor != 'PENDIENTE') {
+            $('#fecha_pago').addClass('input_blanco');
+            $('#fecha_pago').attr('disabled', false);
+            $('#fecha_pago').attr('name', 'fecha_pago');
+         } else {
+            $('#fecha_pago').removeClass('input_blanco');
+            $('#fecha_pago').attr('disabled', true);
+            $('#fecha_pago').val('');
+            $("#fecha_pago-error").addClass("d-none");
+            $("#fecha_pago").removeClass("is-invalid");
+         }
+      });
+
       $('#tipodoc_ingreso').select2({
+         width: '100%',
+         placeholder: "SELECCIONAR...",
+         allowClear: true,
+         minimumResultsForSearch: -1,
+         language: "es",
+      });
+
+      $('#estado_pago').select2({
+         width: '100%',
+         placeholder: "SELECCIONAR...",
+         allowClear: true,
+         minimumResultsForSearch: -1,
+         language: "es",
+      });
+
+      $('#condicion_pago').select2({
          width: '100%',
          placeholder: "SELECCIONAR...",
          allowClear: true,
@@ -23,6 +63,14 @@ $(function () {
 
       // ********** DATEPICKER *******************/
       $('#fec_emision').datepicker({
+         'format': 'dd-mm-yyyy',
+         'autoclose': true,
+         'todayHighlight': true,
+         'language': "es",
+         'orientation': "bottom",
+      });
+
+      $('#fecha_pago').datepicker({
          'format': 'dd-mm-yyyy',
          'autoclose': true,
          'todayHighlight': true,
@@ -250,6 +298,24 @@ $(function () {
                      $('#fec_emision-error').html(data.errors.fec_emision[0]);
                   }
 
+                  if (data.errors.estado_pago) {
+                     $('#estado_pago-error').removeClass('d-none');
+                     $('#estado_pago').parent().addClass('has-error-select2');
+                     $('#estado_pago-error').html(data.errors.estado_pago[0]);
+                  }
+
+                  if (data.errors.condicion_pago) {
+                     $('#condicion_pago-error').removeClass('d-none');
+                     $('#condicion_pago').parent().addClass('has-error-select2');
+                     $('#condicion_pago-error').html(data.errors.condicion_pago[0]);
+                  }
+
+                  if (data.errors.fecha_pago) {
+                     $('#fecha_pago-error').removeClass('d-none');
+                     $('#fecha_pago').addClass('is-invalid');
+                     $('#fecha_pago-error').html(data.errors.fecha_pago[0]);
+                  }
+
                   // ********** VALIDACIONES ARRAY *************
 
                   for (c = 0; c <= i; c++) {
@@ -291,6 +357,7 @@ $(function () {
                if (data.success) {
 
                   Swal.fire({
+                     title: 'Registro: RM-' + data.success,
                      text: "¿Desea imprimir la actualización del ingreso?",
                      icon: "success",
                      showCancelButton: true,
@@ -374,6 +441,42 @@ $(function () {
             } else {
                $("#fec_emision-error").removeClass("d-none");
                $("#fec_emision").addClass("is-invalid");
+            }
+         }
+      });
+
+      $("#fecha_pago").on("change", function () {
+         if ($("#fecha_pago-error").text() != "") {
+            if ($(this).val().length) {
+               $("#fecha_pago-error").addClass("d-none");
+               $("#fecha_pago").removeClass("is-invalid");
+            } else {
+               $("#fecha_pago-error").removeClass("d-none");
+               $("#fecha_pago").addClass("is-invalid");
+            }
+         }
+      });
+
+      $("#estado_pago").on("change", function () {
+         if ($("#estado_pago-error").text() != "") {
+            if ($(this).val() == "") {
+               $("#estado_pago-error").removeClass("d-none");
+               $(this).parent().addClass(" has-error-select2");
+            } else {
+               $("#estado_pago-error").addClass("d-none");
+               $(this).parent().removeClass(" has-error-select2");
+            }
+         }
+      });
+
+      $("#condicion_pago").on("change", function () {
+         if ($("#condicion_pago-error").text() != "") {
+            if ($(this).val() == "") {
+               $("#condicion_pago-error").removeClass("d-none");
+               $(this).parent().addClass(" has-error-select2");
+            } else {
+               $("#condicion_pago-error").addClass("d-none");
+               $(this).parent().removeClass(" has-error-select2");
             }
          }
       });

@@ -4,25 +4,22 @@
       <div class="card card-border">
          <div class="card-body row">
 
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-2 mt-2">
-               {!! Html::decode(Form::label('num_registro', 'N° Registro', ['class' => 'font-weight-bold mt-1'])) !!}
-               {!! Form::text('cod_ingreso', $num_registro, ['class' => 'form-control', 'readonly']) !!}
-            </div>
-
-            <div class="col-12 col-sm-6 col-lg-8 col-xl-4 mt-2" id="nomproveedor_typeahead">
-               {!! Html::decode(Form::label('proveedor', 'Proveedor <span class="text-danger font-weight-normal h6 ml-1">*</span>', ['class' => 'font-weight-bold mt-1'])) !!}
-               {!! Form::text('nom_proveedor', null, ['class' => 'form-control', 'placeholder' => 'NOMBRE DEL PROVEEDOR', 'id' => 'nom_proveedor']) !!}
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 mt-1" id="nomproveedor_typeahead">
+               {!! Html::decode(Form::label('proveedor', 'Nombre Proveedor <span class="text-danger font-weight-normal h6 ml-1">*</span>', ['class' => 'font-weight-bold mt-1'])) !!}
+               {!! Form::text('nom_proveedor', null, ['class' => 'form-control', 'placeholder' => 'NOMBRE DEL PROVEEDOR', 'id' => 'nom_proveedor', 'autofocus']) !!}
                {!! Form::hidden('id_proveedor', null, ['id' => 'id_proveedor']) !!}
                <div class="text-danger py-0 mb-0 mt-1 d-none font-alert" id="nom_proveedor-error"></div>
             </div>
 
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
+            {{-- *************************** CAMPOS AUTORELLENADOS - CENTROS DE COSTO ******************************* --}}
+
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 mt-1">
                {!! Html::decode(Form::label('nom_fantasia', 'Nombre Fantasia', ['class' => 'font-weight-bold mt-1'])) !!}
                {!! Form::text('nom_fantasia', null, ['class' => 'form-control', 'placeholder' => 'NOMBRE FANTASIA', 'readonly', 'id' => 'nom_fantasia']) !!}
             </div>
 
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
-               {!! Html::decode(Form::label('nrodoc', 'RUT Proveedor', ['class' => 'font-weight-bold'])) !!}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-1">
+               {!! Html::decode(Form::label('nrodoc', 'RUT Proveedor', ['class' => 'font-weight-bold mt-1'])) !!}
                <div class="input-group">
                   {!! Form::text('rut_proveedor', null, ['class' => 'form-control', 'placeholder' => 'RUT PROVEEDOR','id' => 'rut_proveedor', 'readonly']) !!}
                   <div class="input-group-text">
@@ -31,8 +28,8 @@
                </div>
             </div>
 
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
-               {!! Html::decode(Form::label('tel_proveedor', 'Teléfono Proveedor', ['class' => 'font-weight-bold'])) !!}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-1">
+               {!! Html::decode(Form::label('tel_proveedor', 'Teléfono Proveedor', ['class' => 'font-weight-bold mt-1'])) !!}
                <div class="input-group">
                   {!! Form::text('tel_proveedor', null, ['class' => 'form-control', 'placeholder' => 'TELÉFONO PROVEEDOR', 'id' => 'tel_proveedor', 'readonly']) !!}
                   <div class="input-group-text">
@@ -41,31 +38,41 @@
                </div>
             </div>
 
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
-               {!! Html::decode(Form::label('region', 'Región', ['class' => 'font-weight-bold'])) !!}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-6 mt-1">
+               {!! Html::decode(Form::label('email', 'Email:', ['class' => 'font-weight-bold mt-1'])) !!}
+               <div class="input-group">
+                  {!! Form::text('email_proveedor', null, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'EMAIL', 'id' => 'email_proveedor', 'readonly']) !!}
+                  <div class="input-group-text">
+                     <i class="fas fa-at"></i>
+                  </div>
+               </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-4 mt-1">
+               {!! Html::decode(Form::label('region', 'Región', ['class' => 'font-weight-bold mt-1'])) !!}
                {!! Form::text('region', null, ['class' => 'form-control', 'placeholder' => 'REGIÓN', 'id' => 'region', 'readonly']) !!}
             </div>
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
-               {!! Html::decode(Form::label('provincia', 'Provincia', ['class' => 'font-weight-bold'])) !!}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-4 mt-1">
+               {!! Html::decode(Form::label('provincia', 'Provincia', ['class' => 'font-weight-bold mt-1'])) !!}
                {!! Form::text('provincia', null, ['class' => 'form-control', 'placeholder' => 'PROVINCIA', 'id' => 'provincia', 'readonly']) !!}
             </div>
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
-               {!! Html::decode(Form::label('comuna', 'Comuna', ['class' => 'font-weight-bold'])) !!}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-4 mt-1">
+               {!! Html::decode(Form::label('comuna', 'Comuna', ['class' => 'font-weight-bold mt-1'])) !!}
                {!! Form::text('comuna', null, ['class' => 'form-control', 'placeholder' => 'COMUNA', 'id' => 'comuna', 'readonly']) !!}
             </div>
 
-            <div class="col-12 col-sm-6 col-lg-7 col-xl-5 mt-2">
-               {!! Html::decode(Form::label('direccion', 'Dirección', ['class' => 'font-weight-bold'])) !!}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-6 mt-1">
+               {!! Html::decode(Form::label('direccion', 'Dirección', ['class' => 'font-weight-bold mt-1'])) !!}
                {!! Form::text('dir_proveedor', null, ['class' => 'form-control', 'placeholder' => 'DIRECCIÓN', 'id' => 'dir_proveedor', 'readonly']) !!}
             </div>
 
-            <div class="col-12 col-sm-6 col-lg-5 col-xl-4 mt-2">
-               {!! Html::decode(Form::label('nom_contacto', 'Nombre Contacto', ['class' => 'font-weight-bold'])) !!}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-6 mt-1">
+               {!! Html::decode(Form::label('nom_contacto', 'Nombre Contacto', ['class' => 'font-weight-bold mt-1'])) !!}
                {!! Form::text('nom_contacto', null, ['class' => 'form-control', 'placeholder' => 'NOMBRE CONTACTO', 'id' => 'nom_contacto', 'readonly']) !!}
             </div>
 
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
-               {!! Html::decode(Form::label('nro_contacto', 'RUT Contacto', ['class' => 'font-weight-bold'])) !!}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-1">
+               {!! Html::decode(Form::label('nro_contacto', 'RUN Contacto', ['class' => 'font-weight-bold mt-1'])) !!}
                <div class="input-group">
                   {!! Form::text('rut_contacto', null, ['class' => 'form-control', 'placeholder' => 'RUT CONTACTO', 'id' => 'rut_contacto', 'readonly']) !!}
                   <div class="input-group-text">
@@ -74,8 +81,8 @@
                </div>
             </div>
 
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
-               {!! Html::decode(Form::label('cel_contacto', 'Celular Contacto', ['class' => 'font-weight-bold'])) !!}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-1">
+               {!! Html::decode(Form::label('cel_contacto', 'Celular Contacto', ['class' => 'font-weight-bold mt-1'])) !!}
                <div class="input-group">
                   {!! Form::text('cel_contacto', null, ['class' => 'form-control', 'placeholder' => 'CELULAR CONTACTO', 'id' => 'cel_contacto', 'readonly']) !!}
                   <div class="input-group-text">
@@ -83,15 +90,16 @@
                   </div>
                </div>
             </div>
+            {{-- *************************** // CAMPOS AUTORELLENADOS - CENTROS DE COSTO ******************************* --}}
 
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
-               {!! Html::decode(Form::label('tipodocumento', 'Tipo de Documento <span class="text-danger font-weight-normal h6 ml-1">*</span>', ['class' => 'font-weight-bold ledit'])) !!}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-1">
+               {!! Html::decode(Form::label('tipodocumento', 'Tipo de Documento <span class="text-danger font-weight-normal h6 ml-1">*</span>', ['class' => 'font-weight-bold mt-1 ledit'])) !!}
                {!! Form::select('tipodoc_ingreso', ['BOLETA' => 'BOLETA', 'FACTURA' => 'FACTURA', 'GUÍA DE DESPACHO' => 'GUÍA DE DESPACHO'], null, ['class' => 'form-control', 'placeholder'=> 'SELECCIONAR...', 'id' => 'tipodoc_ingreso']) !!}
                <div class="text-danger py-0 mb-0 mt-1 d-none font-alert" id="tipodoc_ingreso-error"></div>
             </div>
 
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
-               {!! Html::decode(Form::label('nrodoc', 'N° Documento <span class="text-danger font-weight-normal h6 ml-1">*</span>', ['class' => 'font-weight-bold'])) !!}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-1">
+               {!! Html::decode(Form::label('nrodoc', 'N° Documento <span class="text-danger font-weight-normal h6 ml-1">*</span>', ['class' => 'font-weight-bold mt-1'])) !!}
                <div class="input-group">
                   {!! Form::text('nrodoc_ingreso', null, ['class' => 'form-control alfanumerico', 'placeholder' => 'NÚMERO DOCUMENTO', 'maxlength' => '9', 'autocomplete' => 'off', 'id' => 'nrodoc_ingreso']) !!}
                   <div class="input-group-text">
@@ -101,8 +109,8 @@
                <div class="text-danger py-0 mb-0 mt-1 d-none font-alert" id="nrodoc_ingreso-error"></div>
             </div>
 
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
-               {!! Html::decode(Form::label('fecha_emision', 'Fecha Ingreso <span class="text-danger font-weight-normal h6 ml-1">*</span>', ['class' => 'font-weight-bold'])) !!}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-1">
+               {!! Html::decode(Form::label('fecha_emision', 'Fecha Ingreso <span class="text-danger font-weight-normal h6 ml-1">*</span>', ['class' => 'font-weight-bold mt-1'])) !!}
                <div class="input-group">
                   {!! Form::text('fec_emision', null, ['class' => 'form-control input_blanco' , 'id' => 'fec_emision', 'autocomplete' => 'off', 'readonly', 'placeholder' => 'DD-MM-YYYY']) !!}
                   <div class="input-group-text">
@@ -112,9 +120,43 @@
                <div class="text-danger py-0 mb-0 mt-1 d-none font-alert" id="fec_emision-error"></div>
             </div>
 
-            <div class="col-12 mt-2">
-               {!! Html::decode(Form::label('observaciones', 'Observaciones', ['class' => 'font-weight-bold'])) !!}
-               {!! Form::textarea('observaciones', null, ['class' => 'form-control alfanumerico', 'autocomplete' => 'off', 'rows' => '2', 'style' => 'resize:none', 'maxlength' => '100']) !!}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-1">
+               {!! Html::decode(Form::label('estado_pago', 'Estado de Pago', ['class' => 'font-weight-bold mt-1'])) !!}
+               {!! Form::select('estado_pago', ['PENDIENTE' => 'PENDIENTE', 'PAGADO' => 'PAGADO'], 'PENDIENTE', ['class' => 'form-control', 'placeholder'=> 'SELECCIONAR...', 'id' => 'estado_pago', 'disabled']) !!}
+               {{-- <div class="text-danger py-0 mb-0 mt-1 d-none font-alert" id="estado_pago-error"></div> --}}
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-1">
+               {!! Html::decode(Form::label('fecha_pago', 'Fecha de Pago', ['class' => 'font-weight-bold mt-1'])) !!}
+               <div class="input-group">
+                  {!! Form::text('fecha_pago', null, ['class' => 'form-control', 'id' => 'fecha_pago', 'autocomplete' => 'off', 'readonly', 'placeholder' => 'DD-MM-YYYY']) !!}
+                  <div class="input-group-text">
+                     <i class="far fa-calendar-alt"></i>
+                  </div>
+               </div>
+               {{-- <div class="text-danger py-0 mb-0 mt-1 d-none font-alert" id="fecha_pago-error"></div> --}}
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-1">
+               {!! Html::decode(Form::label('condicion_pago', 'Condición de Pago', ['class' => 'font-weight-bold mt-1'])) !!}
+               {!! Form::select('condicion_pago', ['CONTADO' => 'CONTADO', '30D' => 'PAGO A 30 DIAS', '60D' => 'PAGO A 60 DIAS', '90D' => 'PAGO A 90 DIAS'], null, ['class' => 'form-control', 'placeholder'=> 'SELECCIONAR...', 'id' => 'condicion_pago', 'disabled']) !!}
+               {{-- <div class="text-danger py-0 mb-0 mt-1 d-none font-alert" id="condicion_pago-error"></div> --}}
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-4 mt-1">
+               {!! Html::decode(Form::label('resp_registro', 'Resp. Registro', ['class' => 'font-weight-bold mt-1'])) !!}
+               {!! Form::text('resp_registro', Auth::user()->name, ['class' => 'form-control', 'placeholder' => 'NOMBRE RESPONSABLE', 'id' => 'resp_registro', 'readonly']) !!}
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-4 mt-1">
+               {!! Html::decode(Form::label('resp_recibio', 'Resp. Recibió', ['class' => 'font-weight-bold mt-1'])) !!}
+               {!! Form::text('resp_recibio', null, ['class' => 'form-control letras', 'placeholder' => 'NOMBRE RESPONSABLE', 'autocomplete' => 'off', 'maxlength' => '50', 'id' => 'resp_recibio']) !!}
+               <div class="text-danger py-0 mb-0 mt-1 d-none font-alert" id="resp_recibio-error"></div>
+            </div>
+
+            <div class="col-12 mt-1">
+               {!! Html::decode(Form::label('observaciones', 'Observaciones <span class="text-danger font-weight-normal h6 ml-1">*</span>', ['class' => 'font-weight-bold mt-1'])) !!}
+               {!! Form::textarea('observaciones', null, ['class' => 'form-control', 'autocomplete' => 'off', 'rows' => '3', 'style' => 'resize:none', 'maxlength' => '200', 'id' => 'observaciones']) !!}
                <div class="text-danger py-0 mb-0 mt-1 d-none font-alert" id="observaciones-error"></div>
             </div>
 
@@ -192,7 +234,7 @@
                </div>
             </div>
 
-            <div class="col-12">
+            <div class="col-12 mt-2">
                <div class="row d-flex justify-content-end">
                   <div class="col-6 col-xl-2">
                      {!! Form::label('subtotal', 'SUBTOTAL', ['class' => 'font-weight-bold']) !!}

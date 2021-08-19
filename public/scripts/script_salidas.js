@@ -16,9 +16,10 @@ $(function () {
             url: route('salidas.data'),
             type: 'GET',
             data: function (d) {
+               d.num_registro = $('#num_registro').val();
                d.nomcc_buscar = $('#nomcc_buscar').val();
                d.rutcc_buscar = $('#rutcc_buscar').val();
-               d.num_registro = $('#num_registro').val();
+               d.resp_entrega_buscar = $('#resp_entrega_buscar').val();
                d.fecInicial_buscar = $('#fecha_inicio').val();
                d.fecFinal_buscar = $('#fecha_fin').val();
             }
@@ -53,6 +54,10 @@ $(function () {
             {
                data: 'fecInicio',
                name: 'fecInicio'
+            },
+            {
+               data: 'respRegistro',
+               name: 'respRegistro'
             },
             {
                data: 'respEntrega',
@@ -97,17 +102,22 @@ $(function () {
 
          var nomcc = $('#nomcc_buscar').val();
          var rutcc = $('#rutcc_buscar').val();
+         var resp_entrega = $('#resp_entrega_buscar').val();
          var nroregistro = $('#num_registro').val();
          var fecha_inicial = $('#fecha_inicio').val();
          var fecha_final = $('#fecha_fin').val();
 
-         if (nomcc != '' || rutcc != '' || nroregistro != '' || fecha_inicial != '' || fecha_final != '') {
+         if (nomcc != '' || rutcc != '' || nroregistro != '' || fecha_inicial != '' || fecha_final != '' || resp_entrega != '') {
 
             if (nomcc != '') {
                $('#tabla_salidas').DataTable().draw(true);
             }
 
             if (rutcc != '') {
+               $('#tabla_salidas').DataTable().draw(true);
+            }
+
+            if (resp_entrega != '') {
                $('#tabla_salidas').DataTable().draw(true);
             }
 
@@ -164,6 +174,7 @@ $(function () {
       $('#reiniciar').on('click', function () {
          $('#nomcc_buscar').val('');
          $('#rutcc_buscar').val('');
+         $('#resp_entrega_buscar').val('');
          $('#num_registro').val('');
          $('#fecha_inicio').val('');
          $('#fecha_fin').val('');

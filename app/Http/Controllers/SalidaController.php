@@ -74,18 +74,19 @@ class SalidaController extends Controller
       $instalaciones = [];
       foreach ($instalacion_buscada as $instalacion) {
          $instalaciones[] = [
-            "id_instalacion"  => $instalacion->id,
-            "nom_instalacion" => $instalacion->nombre,
-            "nom_fantasia"    => $instalacion->nom_fantasia,
-            "rut_instalacion" => $instalacion->nrodoc,
-            "tel_instalacion" => $instalacion->telefono,
-            "dir_instalacion" => $instalacion->direccion,
-            "region"          => $instalacion->region,
-            "provincia"       => $instalacion->provincia,
-            "comuna"          => $instalacion->comuna,
-            "nom_contacto"    => $instalacion->nom_contacto,
-            "rut_contacto"    => $instalacion->nrodoc_contacto,
-            "cel_contacto"    => $instalacion->cel_contacto
+            "id_instalacion"    => $instalacion->id,
+            "nom_instalacion"   => $instalacion->nombre,
+            "nom_fantasia"      => $instalacion->nom_fantasia,
+            "rut_instalacion"   => $instalacion->nrodoc,
+            "tel_instalacion"   => $instalacion->telefono,
+            "email_instalacion" => $instalacion->email,
+            "dir_instalacion"   => $instalacion->direccion,
+            "region"            => $instalacion->region,
+            "provincia"         => $instalacion->provincia,
+            "comuna"            => $instalacion->comuna,
+            "nom_contacto"      => $instalacion->nom_contacto,
+            "rut_contacto"      => $instalacion->nrodoc_contacto,
+            "cel_contacto"      => $instalacion->cel_contacto
          ];
       }
 
@@ -145,6 +146,15 @@ class SalidaController extends Controller
             ->get();
       }
 
+      // *********** BUSQUEDAS UNITARIAS - RESPONSABLE DE LA ENTREGA *****************
+      if (!empty($request->resp_entrega_buscar)) {
+         $respEntregaBuscar = $request->resp_entrega_buscar;
+
+         $salida_entrada
+            ->where('salidas.entregado_por', 'LIKE', '%' . $respEntregaBuscar . '%')
+            ->get();
+      }
+
       // *********** BUSQUEDAS UNITARIAS - NÚMERO DE REGISTRO *****************
       if (!empty($request->num_registro)) {
          $nroRegistroBuscar = $request->num_registro;
@@ -170,7 +180,7 @@ class SalidaController extends Controller
       $salida = $salida_entrada->join('instalaciones as ins', 'ins.id', '=', 'salidas.instalaciones_id')
          ->leftjoin('movimiento_productos as mp', 'mp.salidas_id', '=', 'salidas.id')
          ->leftjoin('users as us', 'us.id', '=', 'salidas.creado_por')
-         ->select('salidas.*', 'salidas.id as idSalida', 'salidas.codigo as codSalida', 'ins.nombre as nomInstalacion', 'ins.nrodoc as rutInstalacion', 'ins.telefono as telInstalacion', 'ins.direccion as dirInstalacion', 'salidas.fecha_inicial as fecInicio', 'us.name as respEntrega', 'salidas.recibido_por as respRecibio')
+         ->select('salidas.*', 'salidas.id as idSalida', 'salidas.codigo as codSalida', 'ins.nombre as nomInstalacion', 'ins.nrodoc as rutInstalacion', 'ins.telefono as telInstalacion', 'ins.direccion as dirInstalacion', 'salidas.fecha_inicial as fecInicio', 'us.name as respRegistro', 'salidas.entregado_por as respEntrega', 'salidas.recibido_por as respRecibio')
          ->groupBy('idSalida')
          ->where([
             ['salidas.deleted_at', null]
@@ -248,18 +258,7 @@ class SalidaController extends Controller
     */
    public function create()
    {
-      $creado_por = Auth::user()->name;
-
-      $salida = Salida::all();
-
-      if ($salida->isEmpty()) {
-         $num_registro = 'EM-1';
-      } else {
-         $ultimo_id    = Salida::latest('id')->first();
-         $num_registro = 'EM-' . ($ultimo_id->id + 1);
-      }
-
-      return view('salidas.create', compact('creado_por', 'num_registro'));
+      return view('salidas.create');
    }
 
    /**
@@ -273,13 +272,13 @@ class SalidaController extends Controller
       if ($request->ajax()) {
 
          $rules = [
-            'cod_salida'         => 'required',
             'nom_cc'             => 'required',
             'id_cc'              => 'required',
             'fecha_inicio'       => 'required',
             'fecha_fin'          => 'required',
-            'recibido_por'       => 'required',
-            'observaciones'      => 'nullable|max:200',
+            'resp_entrega'       => 'required',
+            'resp_recibio'       => 'required',
+            'observaciones'      => 'required|max:200',
 
             'producto_id.*'      => 'required',
             'producto_ingreso.*' => 'required',
@@ -294,12 +293,16 @@ class SalidaController extends Controller
 
          $salida                   = new Salida();
          $salida->instalaciones_id = $request->id_cc;
-         $salida->codigo           = $request->cod_salida;
+         $salida->codigo           = "";
          $salida->fecha_inicial    = date('Y-m-d', strtotime($request->fecha_inicio));
          $salida->fecha_final      = date('Y-m-d', strtotime($request->fecha_fin));
-         $salida->recibido_por     = strtoupper($request->recibido_por);
+         $salida->entregado_por    = strtoupper($request->resp_entrega);
+         $salida->recibido_por     = strtoupper($request->resp_recibio);
          $salida->observaciones    = strtoupper($request->observaciones);
          $salida->creado_por       = Auth()->user()->id;
+         $salida->save();
+
+         $salida->codigo = 'EM-' . $salida->id;
          $salida->save();
 
          $contador = count(collect($request->cantidad_ingreso));
@@ -399,13 +402,13 @@ class SalidaController extends Controller
       if ($request->ajax()) {
 
          $rules = [
-            'cod_salida'         => 'required',
             'nom_cc'             => 'required',
             'id_cc'              => 'required',
             'fecha_inicio'       => 'required',
             'fecha_fin'          => 'required',
-            'recibido_por'       => 'required',
-            'observaciones'      => 'nullable|max:200',
+            'resp_entrega'       => 'required',
+            'resp_recibio'       => 'required',
+            'observaciones'      => 'required|max:200',
 
             'producto_id.*'      => 'required',
             'producto_ingreso.*' => 'required',
@@ -423,7 +426,8 @@ class SalidaController extends Controller
          $salida->codigo           = $salida->codigo;
          $salida->fecha_inicial    = date('Y-m-d', strtotime($request->fecha_inicio));
          $salida->fecha_final      = date('Y-m-d', strtotime($request->fecha_fin));
-         $salida->recibido_por     = strtoupper($request->recibido_por);
+         $salida->entregado_por    = strtoupper($request->resp_entrega);
+         $salida->recibido_por     = strtoupper($request->resp_recibio);
          $salida->observaciones    = strtoupper($request->observaciones);
          $salida->editado_por      = Auth()->user()->id;
          $salida->save();
@@ -502,6 +506,6 @@ class SalidaController extends Controller
 
       $pdf = app('dompdf.wrapper');
       $pdf->loadView('salidas.impresion', compact('salida', 'mov_productos'));
-      return $pdf->download('EM00' . $salida->id . '.pdf');
+      return $pdf->download('EM-' . $salida->id . '.pdf');
    }
 }

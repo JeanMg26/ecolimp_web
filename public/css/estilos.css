@@ -256,8 +256,18 @@ table#tabla_permisos > thead > tr > th[class*="sort"]:before,
 table#tabla_permisos > thead > tr > th[class*="sort"]:after {
   content: "" !important; }
 
-.table > thead > tr > th {
-  padding-right: 0.1rem; }
+#tabla_roles thead > tr > th,
+#tabla_permisos thead > tr > th,
+#tabla_usuarios thead > tr > th,
+#tabla_empleados thead > tr > th,
+#tabla_categorias thead > tr > th,
+#tabla_productos thead > tr > th,
+#tabla_instalaciones thead > tr > th,
+#tabla_proveedores thead > tr > th,
+#tabla_salidas thead > tr > th,
+#tabla_ingresos thead > tr > th,
+#tabla_consultas thead > tr > th {
+  padding-right: 0.3rem; }
 
 .page-item.active .page-link {
   background-color: #aec5e8 !important;

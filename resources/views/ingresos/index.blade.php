@@ -23,14 +23,17 @@ Registro de Materiales
                {!! Form::label('proveedor', 'Nombre Proveedor', ['class' => 'font-weight-bold mt-2']) !!}
                {!! Form::text('nomproveedor_buscar', null, ['class' => 'form-control letras', 'id' => 'nomproveedor_buscar', 'maxlength' => '9', 'autocomplete' => 'off']) !!}
             </div>
+
             <div class="col-12 col-sm-6 col-xl-3" id="rutproveedor_typeahead">
                {!! Form::label('proveedor', 'RUT Proveedor', ['class' => 'font-weight-bold mt-2']) !!}
                {!! Form::text('rutproveedor_buscar', null, ['class' => 'form-control alfanumerico', 'id' => 'rutproveedor_buscar', 'maxlength' => '9', 'autocomplete' => 'off']) !!}
             </div>
+
             <div class="col-12 col-sm-6 col-xl-3">
                {!! Form::label('tipodoc', 'Tipo de Documento', ['class' => 'font-weight-bold mt-2']) !!}
                {!! Form::select('tipodoc_buscar', ['' => 'TODOS'] + $tipodocumento, null, ['class' => 'form-select', 'id' => 'tipodoc_buscar']) !!}
             </div>
+
             <div class="col-12 col-sm-6 col-xl-3">
                {!! Form::label('nrodoc', 'Número de Documento', ['class' => 'font-weight-bold mt-2']) !!}
                {!! Form::text('nrodoc_buscar', null, ['class' => 'form-control alfanumerico', 'id' => 'nrodoc_buscar', 'maxlength' => '9', 'autocomplete' => 'off']) !!}
@@ -63,7 +66,12 @@ Registro de Materiales
                </div>
             </div>
 
-            <div class="col-12 d-flex justify-content-center align-items-center  justify-content-xl-end align-items-xl-end mt-4">
+            <div class="col-12 col-sm-6 col-xl-3">
+               {!! Form::label('estado_pago', 'Estado de Pago', ['class' => 'font-weight-bold mt-2']) !!}
+               {!! Form::select('estpago_buscar', ['' => 'TODOS'] + $estado_pago, null, ['class' => 'form-select', 'id' => 'estpago_buscar']) !!}
+            </div>
+
+            <div class="col-12 d-flex justify-content-center align-items-center mt-4">
                <button class="btn btn-light-blue px-4 mr-2" id="buscar">
                   <i class="far fa-search mr-2"></i>Buscar
                </button>
@@ -98,18 +106,19 @@ Registro de Materiales
          <table id="tabla_ingresos" class="table table-sm table-hover table-bordered text-nowrap font-table w-100">
             <thead>
                <tr class="bg-light-blue">
-                  <th colspan="9" class="text-center py-3">
+                  <th colspan="10" class="text-center py-3">
                      <h4 class="font-weight-bold mb-0" style="color: #1f4173">INGRESOS REGISTRADOS</h4>
                   </th>
                </tr>
                <tr class="text-center bg-light-blue">
                   <th class="py-2" width="5%">Nº</th>
-                  <th class="py-2" width="10%">N° REGISTRO</th>
+                  <th class="py-2" width="8%">REGISTRO</th>
                   <th class="py-2" width="25%">PROVEEDOR</th>
-                  <th class="py-2" width="20%">RUT PROVEEDOR</th>
+                  <th class="py-2" width="12%">RUT PROVEEDOR</th>
                   <th class="py-2" width="15%">TIPO DE DOCUMENTO</th>
                   <th class="py-2" width="10%">N° DOCUMENTO</th>
-                  <th class="py-2" width="15%">FECHA INGRESO</th>
+                  <th class="py-2" width="13%">FECHA INGRESO</th>
+                  <th class="py-2" width="12%">ESTADO DE PAGO</th>
                   <th class="py-2" width="10%">IMPORTE TOTAL</th>
                   <th class="py-2" width="15%">ACCIONES</th>
                </tr>

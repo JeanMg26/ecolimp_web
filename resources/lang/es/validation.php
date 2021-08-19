@@ -382,8 +382,18 @@ return [
       'fec_emision'        => [
          'required' => 'Elegir la fecha de emisión.'
       ],
+      'estado_pago'        => [
+         'required' => 'Seleccionar el estado de pago.'
+      ],
+      'fecha_pago'         => [
+         'required' => 'Elegir la fecha de pago.'
+      ],
+      'condicion_pago'     => [
+         'required' => 'Elegir la condición del pago.'
+      ],
       'observaciones'      => [
-         'required' => 'Ingresar como máximo 200 carácteres.'
+         'required' => 'Ingresar las observaciones correspondientes.',
+         'max'      => 'Ingresar como máximo 200 carácteres.'
       ],
 
       'producto_id.*'      => [
@@ -406,9 +416,6 @@ return [
       ],
 
       // ********************* TABLA SALIDAS ***************************
-      'cod_salida'         => [
-         'required' => 'Ingrese el código de entrega.'
-      ],
       'nom_cc'             => [
          'required' => 'Seleccionar un centro de costo.'
       ],
@@ -419,13 +426,17 @@ return [
          'required' => 'Elegir la fecha de inicio.'
       ],
       'fecha_fin'          => [
-         'required' => 'Elegir la fecha de finalización.'
+         'required' => 'Elegir la fecha de fin.'
       ],
-      'recibido_por'       => [
-         'required' => 'Ingresar nombres del recibidor.'
+      'resp_entrega'       => [
+         'required' => 'Ingresar nombres del personal de entrega.'
+      ],
+      'resp_recibio'       => [
+         'required' => 'Ingresar nombres del la persona que recibió.'
       ],
       'observaciones'      => [
-         'required' => 'Ingresar como máximo 200 carácteres.'
+         'required' => 'Ingresar las observaciones correspondientes.',
+         'max'      => 'Ingresar como máximo 200 carácteres.'
       ],
 
       'producto_id.*'      => [

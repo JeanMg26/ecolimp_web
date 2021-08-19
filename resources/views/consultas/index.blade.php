@@ -46,8 +46,13 @@ Consulta de Materiales Entregados
                </div>
 
                <div class="col-12 col-sm-6 col-xl-3">
-                  {!! Form::label('entregado_por', 'Entregado Por', ['class' => 'font-weight-bold mt-2']) !!}
-                  {!! Form::select('entregado_por', ['' => 'TODOS'] + $entregado_por, null, ['class' => 'form-control', 'id' => 'entregado_por']) !!}
+                  {!! Form::label('resp_registro', 'Resp. Registro', ['class' => 'font-weight-bold mt-2']) !!}
+                  {!! Form::select('resp_registro', ['' => 'TODOS'] + $registrador, null, ['class' => 'form-control', 'id' => 'resp_registro']) !!}
+               </div>
+
+               <div class="col-12 col-sm-6 col-xl-3" id="resp_entrega_typeahead">
+                  {!! Form::label('resp_entrega', 'Resp. Entrega', ['class' => 'font-weight-bold mt-2']) !!}
+                  {!! Form::text('resp_entrega_buscar', null, ['class' => 'form-control letras', 'id' => 'resp_entrega', 'maxlength' => '15', 'autocomplete' => 'off', 'placeholder' => 'BUSCAR POR NOMBRE']) !!}
                </div>
 
 
@@ -73,7 +78,7 @@ Consulta de Materiales Entregados
                   </div>
                </div>
 
-               <div class="col-12 d-flex justify-content-center justify-content-xl-end align-items-center mt-4">
+               <div class="col-12 d-flex justify-content-center align-items-center mt-4">
                   <button class="btn btn-light-blue px-4 mr-2" id="buscar">
                      <i class="far fa-search mr-2"></i>Buscar
                   </button>
@@ -111,7 +116,7 @@ Consulta de Materiales Entregados
                      <th colspan="1" class="py-2"></th>
                      <th colspan="4" class="py-2">PRODUCTO</th>
                      <th colspan="2" class="py-2">CENTRO DE COSTO</th>
-                     <th colspan="5" class="py-2"></th>
+                     <th colspan="6" class="py-2"></th>
                   </tr>
 
                   <tr class="text-center bg-light-blue">
@@ -119,12 +124,13 @@ Consulta de Materiales Entregados
                      <th class="py-2">CODIGO</th>
                      <th class="py-2">PRODUCTO</th>
                      <th class="py-2">PRES.</th>
-                     <th class="py-2">CANTIDAD</th>
+                     <th class="py-2">CANT.</th>
                      <th class="py-2">NOMBRE</th>
                      <th class="py-2">RUT</th>
                      <th class="py-2">F. ENTREGA</th>
-                     <th class="py-2">RES. ENTREGO</th>
-                     <th class="py-2">RESP. RECIBIO</th>
+                     <th class="py-2">RES. REGISTRÓ</th>
+                     <th class="py-2">RES. ENTREGÓ</th>
+                     <th class="py-2">RESP. RECIBIÓ</th>
                      <th class="py-2">ACCIÓN</th>
                   </tr>
                </thead>

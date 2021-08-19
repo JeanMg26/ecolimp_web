@@ -29,67 +29,81 @@ Detalle de Ingresos de Productos
          <div class="card-body">
             <div class="row">
 
-               <div class="col-12 col-sm-6 col-lg-4 col-xl-2 mt-2">
+               <div class="col-12 col-sm-6 col-md-6 col-lg-2 col-xl-2 mt-1">
                   {!! Html::decode(Form::label('num_registro', 'N° Registro', ['class' => 'font-weight-bold mt-1'])) !!}
                   {!! Form::text('cod_ingreso', isset($ingreso) ? $ingreso->codigo : '', ['class' => 'form-control', 'readonly']) !!}
                </div>
 
-               <div class="col-12 col-sm-6 col-lg-8 col-xl-4 mt-2" id="nomproveedor_typeahead">
-                  {!! Form::label('nom_proveedor', 'Nombre del Proveedor', ['class' => 'font-weight-bold mt-2']) !!}
+               <div class="col-12 col-sm-6 col-md-6 col-lg-5 col-xl-5 mt-1" id="nomproveedor_typeahead">
+                  {!! Form::label('nom_proveedor', 'Nombre del Proveedor', ['class' => 'font-weight-bold mt-1']) !!}
                   {!! Form::text('nom_proveedor', $ingreso->proveedor->nombre, ['class' => 'form-control', 'readonly']) !!}
                </div>
 
-               <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 mt-2">
+               <div class="col-12 col-sm-6 col-md-6 col-lg-5 col-xl-5 mt-1">
                   {!! Html::decode(Form::label('nom_fantasia', 'Nombre Fantasia', ['class' => 'font-weight-bold mt-1'])) !!}
                   {!! Form::text('nom_fantasia', $ingreso->proveedor->nom_fantasia, ['class' => 'form-control', 'placeholder' => 'NOMBRE FANTASIA', 'readonly', 'id' => 'nom_fantasia']) !!}
                </div>
 
-               <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
-                  {!! Form::label('rut_proveedor', 'RUT del Proveedor', ['class' => 'font-weight-bold mt-2']) !!}
+               <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-1">
+                  {!! Form::label('rut_proveedor', 'RUT del Proveedor', ['class' => 'font-weight-bold mt-1']) !!}
                   {!! Form::text('rut_proveedor', $ingreso->proveedor->nrodoc, ['class' => 'form-control', 'readonly']) !!}
                </div>
-               <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
-                  {!! Form::label('tel_proveedor', 'Tel. del Proveedor', ['class' => 'font-weight-bold mt-2']) !!}
+               <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-1">
+                  {!! Form::label('tel_proveedor', 'Tel. del Proveedor', ['class' => 'font-weight-bold mt-1']) !!}
                   {!! Form::text('tel_proveedor', $ingreso->proveedor->telefono, ['class' => 'form-control', 'readonly']) !!}
                </div>
 
-               <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
+               <div class="col-12 col-sm-6 col-lg-4 col-xl-6 mt-1">
+                  {!! Form::label('email', 'Email:', ['class' => 'font-weight-bold mt-1 mt-1']) !!}
+                  <div class="input-group">
+                     {!! Form::text('email_proveedor', $ingreso->proveedor->email, ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'EMAIL', 'id' => 'email_proveedor', 'readonly']) !!}
+                     <div class="input-group-text">
+                        <i class="fas fa-at"></i>
+                     </div>
+                  </div>
+               </div>
+
+               <div class="col-12 col-sm-6 col-lg-4 col-xl-4 mt-1">
                   {!! Html::decode(Form::label('region', 'Región', ['class' => 'font-weight-bold'])) !!}
                   {!! Form::text('region', $ingreso->proveedor->region->nombre, ['class' => 'form-control', 'placeholder' => 'REGIÓN', 'id' => 'region', 'readonly']) !!}
                </div>
-               <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
+
+               <div class="col-12 col-sm-6 col-lg-4 col-xl-4 mt-1">
                   {!! Html::decode(Form::label('provincia', 'Provincia', ['class' => 'font-weight-bold'])) !!}
                   {!! Form::text('provincia', $ingreso->proveedor->provincia->nombre, ['class' => 'form-control', 'placeholder' => 'PROVINCIA', 'id' => 'provincia', 'readonly']) !!}
                </div>
-               <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
+
+               <div class="col-12 col-sm-6 col-lg-4 col-xl-4 mt-1">
                   {!! Html::decode(Form::label('comuna', 'Comuna', ['class' => 'font-weight-bold'])) !!}
                   {!! Form::text('comuna', $ingreso->proveedor->comuna->nombre, ['class' => 'form-control', 'placeholder' => 'COMUNA', 'id' => 'comuna', 'readonly']) !!}
                </div>
 
-               <div class="col-12 col-sm-6 col-lg-7 col-xl-5 mt-2">
-                  {!! Html::decode(Form::label('direccion', 'Dirección', ['class' => 'font-weight-bold'])) !!}
+               <div class="col-12 col-sm-6 col-lg-4 col-xl-6 mt-1">
+                  {!! Html::decode(Form::label('direccion', 'Dirección', ['class' => 'font-weight-bold mt-1'])) !!}
                   {!! Form::text('dir_proveedor', $ingreso->proveedor->direccion, ['class' => 'form-control', 'placeholder' => 'DIRECCIÓN', 'id' => 'dir_proveedor', 'readonly']) !!}
                </div>
 
-               <div class="col-12 col-sm-6 col-lg-5 col-xl-4 mt-2">
-                  {!! Form::label('nom_contacto', 'Nombre del Contacto', ['class' => 'font-weight-bold mt-2']) !!}
+               <div class="col-12 col-sm-6 col-lg-4 col-xl-6 mt-1">
+                  {!! Form::label('nom_contacto', 'Nombre del Contacto', ['class' => 'font-weight-bold mt-1']) !!}
                   {!! Form::text('nom_contacto', $ingreso->proveedor->nom_contacto, ['class' => 'form-control', 'readonly']) !!}
                </div>
-               <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
-                  {!! Form::label('nrodoc_contacto', 'RUT del Contacto', ['class' => 'font-weight-bold mt-2']) !!}
+
+               <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-1">
+                  {!! Form::label('nrodoc_contacto', 'RUN del Contacto', ['class' => 'font-weight-bold mt-1']) !!}
                   {!! Form::text('nrodoc_contacto', $ingreso->proveedor->nrodoc_contacto, ['class' => 'form-control', 'readonly']) !!}
                </div>
-               <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
-                  {!! Form::label('cel_contacto', 'Cel. del Contacto', ['class' => 'font-weight-bold mt-2']) !!}
+
+               <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-1">
+                  {!! Form::label('cel_contacto', 'Cel. del Contacto', ['class' => 'font-weight-bold mt-1']) !!}
                   {!! Form::text('cel_contacto', $ingreso->proveedor->cel_contacto, ['class' => 'form-control', 'readonly']) !!}
                </div>
 
-               <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
-                  {!! Form::label('tipodoc', 'Tipo Documento', ['class' => 'font-weight-bold mt-2']) !!}
+               <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-1">
+                  {!! Form::label('tipodoc', 'Tipo Documento', ['class' => 'font-weight-bold mt-1']) !!}
                   {!! Form::text('tipodoc', $ingreso->tipodoc, ['class' => 'form-control', 'readonly']) !!}
                </div>
 
-               <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
+               <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-1">
                   {!! Form::label('nrodoc', 'N° Documento', ['class' => 'font-weight-bold']) !!}
                   <div class="input-group">
                      {!! Form::text('nrodoc_ingreso', $ingreso->nrodoc, ['class' => 'form-control alfanumerico', 'readonly']) !!}
@@ -99,8 +113,8 @@ Detalle de Ingresos de Productos
                   </div>
                </div>
 
-               <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
-                  {!! Form::label('fecha_emision', 'Fecha Ingreso', ['class' => 'font-weight-bold mt-2']) !!}
+               <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-1">
+                  {!! Form::label('fecha_emision', 'Fecha Ingreso', ['class' => 'font-weight-bold mt-1']) !!}
                   <div class="input-group">
                      {!! Form::text('fec_emision', date('d-m-Y', strtotime($ingreso->fecha_emision)), ['class' => 'form-control', 'readonly']) !!}
                      <div class="input-group-text">
@@ -109,17 +123,44 @@ Detalle de Ingresos de Productos
                   </div>
                </div>
 
-               <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
-                  {!! Form::label('creado_por', 'Creado por', ['class' => 'font-weight-bold mt-2']) !!}
-                  {!! Form::text('creado_por', $ingreso->usuario_creador->name, ['class' => 'form-control', 'readonly']) !!}
-               </div>
-               <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
-                  {!! Form::label('editado_por', 'Editado por', ['class' => 'font-weight-bold mt-2']) !!}
-                  {!! Form::text('editado_por', isset($ingreso->usuario_editor) ? $ingreso->usuario_editor->name : '', ['class' => 'form-control', 'readonly']) !!}
+               <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-1">
+                  {!! Form::label('estado_pago', 'Estado de Pago', ['class' => 'font-weight-bold mt-1']) !!}
+                  {!! Form::text('condicion_pago', isset($ingreso) ? $ingreso->estado_pago : '', ['class' => 'form-control', 'readonly']) !!}
                </div>
 
-               <div class="col-12 mt-2">
-                  {!! Form::label('observaciones', 'Observaciones', ['class' => 'font-weight-bold mt-2']) !!}
+               <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-1">
+                  {!! Form::label('fecha_pago', 'Fecha de Pago', ['class' => 'font-weight-bold mt-1']) !!}
+                  <div class="input-group">
+                     {!! Form::text('fec_pago', isset($ingreso->fecha_pago) ? date('d-m-Y', strtotime($ingreso->fecha_pago)) : '', ['class' => 'form-control' , 'id' => 'fecha_pago', 'autocomplete' => 'off', 'readonly', 'placeholder' => 'DD-MM-YYYY', 'readonly']) !!}
+                     <div class="input-group-text">
+                        <i class="far fa-calendar-alt"></i>
+                     </div>
+                  </div>
+               </div>
+
+               <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-1">
+                  {!! Html::decode(Form::label('condicion_pago', 'Condición de Pago', ['class' => 'font-weight-bold mt-1'])) !!}
+                  {!! Form::select('condicion_pago', ['' => '', 'CONTADO' => 'CONTADO', '30D' => 'PAGO A 30 DIAS', '60D' => 'PAGO A 60 DIAS', '90D' => 'PAGO A 90 DIAS'], isset($ingreso) ? $ingreso->condicion_pago : '', ['class' => 'form-control', 'placeholder'=> 'SELECCIONAR...', 'id' => 'condicion_pago', 'disabled']) !!}
+               </div>
+
+
+               <div class="col-12 col-sm-6 col-lg-4 col-xl-4 mt-1">
+                  {!! Form::label('resp_registro', 'Resp. Registro', ['class' => 'font-weight-bold mt-1']) !!}
+                  {!! Form::text('resp_registro', $ingreso->usuario_creador->name, ['class' => 'form-control', 'readonly']) !!}
+               </div>
+
+               <div class="col-12 col-sm-6 col-lg-4 col-xl-4 mt-1">
+                  {!! Form::label('resp_edicion', 'Resp. Edición', ['class' => 'font-weight-bold mt-1']) !!}
+                  {!! Form::text('resp_edicion', isset($ingreso->usuario_editor) ? $ingreso->usuario_editor->name : '', ['class' => 'form-control', 'readonly']) !!}
+               </div>
+
+               <div class="col-12 col-sm-6 col-lg-4 col-xl-4 mt-1">
+                  {!! Html::decode(Form::label('resp_recibio', 'Resp. Recibió', ['class' => 'font-weight-bold mt-1'])) !!}
+                  {!! Form::text('resp_recibio', isset($ingreso) ? $ingreso->recibido_por : '', ['class' => 'form-control letras', 'placeholder' => 'NOMBRE RESPONSABLE', 'autocomplete' => 'off', 'maxlength' => '50', 'id' => 'resp_recibio', 'readonly']) !!}
+               </div>
+
+               <div class="col-12 mt-1">
+                  {!! Form::label('observaciones', 'Observaciones', ['class' => 'font-weight-bold mt-1']) !!}
                   {!! Form::textarea('observaciones', $ingreso->observaciones, ['class' => 'form-control', 'readonly', 'rows' => '2']) !!}
                </div>
 

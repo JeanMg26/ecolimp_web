@@ -29,24 +29,24 @@ Detalle de la Entrega de Materiales
       <div class="card card-border">
          <div class="card-body row">
 
-            <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-2 mt-2">
-               {!! Form::label('cod_salida', 'Código', ['class' => 'font-weight-bold mt-2']) !!}
+            <div class="col-12 col-sm-6 col-md-6 col-lg-2 col-xl-2 mt-1">
+               {!! Form::label('cod_salida', 'Código', ['class' => 'font-weight-bold mt-1']) !!}
                {!! Form::text('cod_salida', isset($salida) ? $salida->codigo : '', ['class' => 'form-control', 'placeholder' => 'CÓDIGO SALIDA', 'readonly']) !!}
             </div>
 
-            <div class="col-12 col-sm-6 col-md-6 col-lg-8 col-xl-4 mt-2" id="nomcc_typeahead">
-               {!! Form::label('nomcc', 'Nombre del C.C.', ['class' => 'font-weight-bold mt-2']) !!}
+            <div class="col-12 col-sm-6 col-md-6 col-lg-5 col-xl-5 mt-1" id="nomcc_typeahead">
+               {!! Form::label('nomcc', 'Nombre del C.C.', ['class' => 'font-weight-bold mt-1']) !!}
                {!! Form::text('nom_cc', isset($salida) ? $salida->instalacion->nombre : '', ['class' => 'form-control', 'placeholder' => 'NOMBRE DEL C.C.', 'readonly']) !!}
             </div>
 
             {{-- *************************** CAMPOS AUTORELLENADOS - CENTROS DE COSTO ******************************* --}}
-            <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 mt-2">
-               {!! Form::label('nom_fantasia', 'Nombre Fantasia C.C.', ['class' => 'font-weight-bold mt-2']) !!}
+            <div class="col-12 col-sm-6 col-md-6 col-lg-5 col-xl-5 mt-1">
+               {!! Form::label('nom_fantasia', 'Nombre Fantasia C.C.', ['class' => 'font-weight-bold mt-1']) !!}
                {!! Form::text('nom_fantasia', isset($salida) ? $salida->instalacion->nom_fantasia : '', ['class' => 'form-control', 'placeholder' => 'NOMBRE FANTASIA C.C.', 'readonly']) !!}
             </div>
 
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
-               {!! Form::label('nrodoc', 'RUT C.C.', ['class' => 'font-weight-bold mt-2']) !!}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-1">
+               {!! Form::label('nrodoc', 'RUT C.C.', ['class' => 'font-weight-bold mt-1']) !!}
                <div class="input-group">
                   {!! Form::text('rut_cc', isset($salida) ? $salida->instalacion->nrodoc : '', ['class' => 'form-control', 'placeholder' => 'RUT DEL C.C.', 'readonly']) !!}
                   <div class="input-group-text">
@@ -55,8 +55,8 @@ Detalle de la Entrega de Materiales
                </div>
             </div>
 
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
-               {!! Form::label('tel_cc', 'Teléfono C.C.', ['class' => 'font-weight-bold mt-2']) !!}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-1">
+               {!! Form::label('tel_cc', 'Teléfono C.C.', ['class' => 'font-weight-bold mt-1']) !!}
                <div class="input-group">
                   {!! Form::text('tel_cc', isset($salida) ? $salida->instalacion->telefono : '', ['class' => 'form-control', 'placeholder' => 'TELÉFONO C.C.', 'readonly']) !!}
                   <div class="input-group-text">
@@ -65,33 +65,43 @@ Detalle de la Entrega de Materiales
                </div>
             </div>
 
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
-               {!! Form::label('region', 'Región', ['class' => 'font-weight-bold mt-2']) !!}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-6 mt-1">
+               {!! Html::decode(Form::label('email', 'Email:', ['class' => 'font-weight-bold mt-1'])) !!}
+               <div class="input-group">
+                  {!! Form::text('email_cc', isset($salida) ? $salida->instalacion->email : '', ['class' => 'form-control', 'autocomplete' => 'off', 'placeholder' => 'EMAIL', 'id' => 'email_cc', 'readonly']) !!}
+                  <div class="input-group-text">
+                     <i class="fas fa-at"></i>
+                  </div>
+               </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-4 mt-1">
+               {!! Form::label('region', 'Región', ['class' => 'font-weight-bold mt-1']) !!}
                {!! Form::text('region', isset($salida) ? $salida->instalacion->region->nombre : '', ['class' => 'form-control', 'placeholder' => 'REGIÓN', 'readonly']) !!}
             </div>
 
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
-               {!! Form::label('provincia', 'Provincia', ['class' => 'font-weight-bold mt-2']) !!}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-4 mt-1">
+               {!! Form::label('provincia', 'Provincia', ['class' => 'font-weight-bold mt-1']) !!}
                {!! Form::text('provincia', isset($salida) ? $salida->instalacion->provincia->nombre : '', ['class' => 'form-control', 'placeholder' => 'PROVINCIA', 'readonly']) !!}
             </div>
 
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
-               {!! Form::label('comuna', 'Comuna', ['class' => 'font-weight-bold mt-2']) !!}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-4 mt-1">
+               {!! Form::label('comuna', 'Comuna', ['class' => 'font-weight-bold mt-1']) !!}
                {!! Form::text('comuna', isset($salida) ? $salida->instalacion->comuna->nombre : '', ['class' => 'form-control', 'placeholder' => 'COMUNA', 'readonly']) !!}
             </div>
 
-            <div class="col-12 col-sm-6 col-lg-7 col-xl-5 mt-2">
-               {!! Form::label('direccion', 'Dirección', ['class' => 'font-weight-bold mt-2']) !!}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-6 mt-1">
+               {!! Form::label('direccion', 'Dirección', ['class' => 'font-weight-bold mt-1']) !!}
                {!! Form::text('dir_cc', isset($salida) ? $salida->instalacion->direccion : '', ['class' => 'form-control', 'placeholder' => 'DIRECCIÓN', 'readonly']) !!}
             </div>
 
-            <div class="col-12 col-sm-6 col-lg-5 col-xl-4 mt-2">
-               {!! Form::label('nom_contacto', 'Nombre Contacto', ['class' => 'font-weight-bold mt-2']) !!}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-6 mt-1">
+               {!! Form::label('nom_contacto', 'Nombre Contacto', ['class' => 'font-weight-bold mt-1']) !!}
                {!! Form::text('nom_contacto', isset($salida) ? $salida->instalacion->nom_contacto : '', ['class' => 'form-control', 'placeholder' => 'NOMBRE CONTACTO', 'readonly']) !!}
             </div>
 
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
-               {!! Form::label('nro_contacto', 'RUT Contacto', ['class' => 'font-weight-bold mt-2']) !!}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-1">
+               {!! Form::label('nro_contacto', 'RUT Contacto', ['class' => 'font-weight-bold mt-1']) !!}
                <div class="input-group">
                   {!! Form::text('rut_contacto', isset($salida) ? $salida->instalacion->nrodoc_contacto : '', ['class' => 'form-control', 'placeholder' => 'RUT CONTACTO', 'readonly']) !!}
                   <div class="input-group-text">
@@ -100,8 +110,8 @@ Detalle de la Entrega de Materiales
                </div>
             </div>
 
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
-               {!! Form::label('cel_contacto', 'Celular Contacto', ['class' => 'font-weight-bold mt-2']) !!}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-1">
+               {!! Form::label('cel_contacto', 'Celular Contacto', ['class' => 'font-weight-bold mt-1']) !!}
                <div class="input-group">
                   {!! Form::text('cel_contacto', isset($salida) ? $salida->instalacion->cel_contacto : '', ['class' => 'form-control', 'placeholder' => 'CELULAR CONTACTO', 'readonly']) !!}
                   <div class="input-group-text">
@@ -111,8 +121,8 @@ Detalle de la Entrega de Materiales
             </div>
             {{-- *************************** // CAMPOS AUTORELLENADOS - CENTROS DE COSTO ******************************* --}}
 
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
-               {!! Form::label('fecha_inicio', 'Fecha Inicio', ['class' => 'font-weight-bold mt-2']) !!}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-1">
+               {!! Form::label('fecha_inicio', 'Fecha Inicio', ['class' => 'font-weight-bold mt-1']) !!}
                <div class="input-group">
                   {!! Form::text('fecha_inicio', isset($salida) ? date('d-m-Y', strtotime($salida->fecha_inicial)) : '', ['class' => 'form-control', 'readonly', 'placeholder' => 'DD-MM-YYYY']) !!}
                   <div class="input-group-text">
@@ -121,8 +131,8 @@ Detalle de la Entrega de Materiales
                </div>
             </div>
 
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
-               {!! Form::label('fecha_fin', 'Fecha Fin', ['class' => 'font-weight-bold mt-2']) !!}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-1">
+               {!! Form::label('fecha_fin', 'Fecha Fin', ['class' => 'font-weight-bold mt-1']) !!}
                <div class="input-group">
                   {!! Form::text('fecha_fin', isset($salida) ? date('d-m-Y', strtotime($salida->fecha_final)) : '', ['class' => 'form-control' , 'readonly', 'placeholder' => 'DD-MM-YYYY']) !!}
                   <div class="input-group-text">
@@ -131,24 +141,29 @@ Detalle de la Entrega de Materiales
                </div>
             </div>
 
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
-               {!! Form::label('usu_responsable', 'Usuario Creador', ['class' => 'font-weight-bold mt-2']) !!}
-               {!! Form::text('usu_responsable', $salida->usuario_creador->name, ['class' => 'form-control', 'placeholder' => 'RESPONSABLE', 'readonly']) !!}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-4 mt-1">
+               {!! Form::label('resp_registro', 'Resp. Registro', ['class' => 'font-weight-bold mt-1']) !!}
+               {!! Form::text('resp_registro', isset($salida->usuario_creador) ? $salida->usuario_creador->name : '' , ['class' => 'form-control', 'placeholder' => 'RESPONSABLE', 'readonly']) !!}
             </div>
 
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2">
-               {!! Form::label('usu_responsable', 'Usuario Editor', ['class' => 'font-weight-bold mt-2']) !!}
-               {!! Form::text('usu_responsable', isset($salida->usuario_editor) ? $salida->usuario_editor->name : '', ['class' => 'form-control', 'placeholder' => 'RESPONSABLE', 'id' => 'usu_responsable', 'readonly']) !!}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-4 mt-1">
+               {!! Form::label('resp_edicion', 'Resp. Edición', ['class' => 'font-weight-bold mt-1']) !!}
+               {!! Form::text('resp_edicion', isset($salida->usuario_editor) ? $salida->usuario_editor->name : '', ['class' => 'form-control', 'placeholder' => 'RESPONSABLE', 'id' => 'resp_edicion', 'readonly']) !!}
             </div>
 
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-4 mt-2">
-               {!!Form::label('recibidor', 'Recibido por', ['class' => 'font-weight-bold mt-2']) !!}
-               {!! Form::text('recibido_por', isset($salida->recibido_por) ? $salida->recibido_por : '', ['class' => 'form-control', 'placeholder' => 'RESPONSABLE', 'id' => 'recibido_por', 'readonly']) !!}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-4 mt-1">
+               {!! Html::decode(Form::label('resp_entrega', 'Resp. Entrega', ['class' => 'font-weight-bold mt-1'])) !!}
+               {!! Form::text('resp_entrega', isset($salida) ? $salida->entregado_por : '', ['class' => 'form-control letras', 'placeholder' => 'NOMBRE RESPONSABLE', 'id' => 'resp_entrega', 'readonly']) !!}
             </div>
 
-            <div class="col-12 col-lg-8 col-xl-12 mt-2">
-               {!! Form::label('observaciones', 'Observaciones', ['class' => 'font-weight-bold mt-2']) !!}
-               {!! Form::textarea('observaciones', isset($salida) ? $salida->observaciones : '', ['class' => 'form-control alfanumerico', 'readonly', 'rows' => '2', 'style' => 'resize:none', 'maxlength' => '100']) !!}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-4 mt-1">
+               {!!Form::label('resp_recibio', 'Resp. Recibió', ['class' => 'font-weight-bold mt-1']) !!}
+               {!! Form::text('resp_recibio', isset($salida->recibido_por) ? $salida->recibido_por : '', ['class' => 'form-control', 'placeholder' => 'RESPONSABLE', 'id' => 'resp_recibio', 'readonly']) !!}
+            </div>
+
+            <div class="col-12 col-lg-12 col-xl-12 mt-1">
+               {!! Form::label('observaciones', 'Observaciones', ['class' => 'font-weight-bold mt-1']) !!}
+               {!! Form::textarea('observaciones', isset($salida) ? $salida->observaciones : '', ['class' => 'form-control alfanumerico', 'readonly', 'rows' => '3', 'style' => 'resize:none', 'maxlength' => '100']) !!}
             </div>
 
 

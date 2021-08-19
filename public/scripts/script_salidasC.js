@@ -249,6 +249,7 @@ $(function () {
             $('#rut_cc').val(outerData[data]['rut_instalacion']);
             $('#tel_cc').val(outerData[data]['tel_instalacion']);
             $('#dir_cc').val(outerData[data]['dir_instalacion']);
+            $('#email_cc').val(outerData[data]['email_instalacion']);
             $('#region').val(outerData[data]['region']);
             $('#provincia').val(outerData[data]['provincia']);
             $('#comuna').val(outerData[data]['comuna']);
@@ -266,26 +267,26 @@ $(function () {
 
    function quitar_alertas() {
 
-      $("#cod_salida").on("keyup", function () {
-         if ($("#cod_salida-error").text() != "") {
+      $("#resp_entrega").on("keyup", function () {
+         if ($("#resp_entrega-error").text() != "") {
             if ($(this).val().length) {
-               $("#cod_salida-error").addClass("d-none");
-               $("#cod_salida").removeClass("is-invalid");
+               $("#resp_entrega-error").addClass("d-none");
+               $("#resp_entrega").removeClass("is-invalid");
             } else {
-               $("#cod_salida-error").removeClass("d-none");
-               $("#cod_salida").addClass("is-invalid");
+               $("#resp_entrega-error").removeClass("d-none");
+               $("#resp_entrega").addClass("is-invalid");
             }
          }
       });
 
-      $("#recibido_por").on("keyup", function () {
-         if ($("#recibido_por-error").text() != "") {
+      $("#resp_recibio").on("keyup", function () {
+         if ($("#resp_recibio-error").text() != "") {
             if ($(this).val().length) {
-               $("#recibido_por-error").addClass("d-none");
-               $("#recibido_por").removeClass("is-invalid");
+               $("#resp_recibio-error").addClass("d-none");
+               $("#resp_recibio").removeClass("is-invalid");
             } else {
-               $("#recibido_por-error").removeClass("d-none");
-               $("#recibido_por").addClass("is-invalid");
+               $("#resp_recibio-error").removeClass("d-none");
+               $("#resp_recibio").addClass("is-invalid");
             }
          }
       });
@@ -322,6 +323,18 @@ $(function () {
             } else {
                $("#fecha_fin-error").removeClass("d-none");
                $("#fecha_fin").addClass("is-invalid");
+            }
+         }
+      });
+
+      $("#observaciones").on("keyup", function () {
+         if ($("#observaciones-error").text() != "") {
+            if ($(this).val().length) {
+               $("#observaciones-error").addClass("d-none");
+               $("#observaciones").removeClass("is-invalid");
+            } else {
+               $("#observaciones-error").removeClass("d-none");
+               $("#observaciones").addClass("is-invalid");
             }
          }
       });
@@ -402,18 +415,11 @@ $(function () {
 
                if (data.errors) {
 
-                  if (data.errors.cod_salida) {
-                     $('#cod_salida-error').removeClass('d-none');
-                     $('#cod_salida').addClass('is-invalid');
-                     $('#cod_salida-error').html(data.errors.cod_salida[0]);
-                  }
-
                   if (data.errors.nom_cc) {
                      $('#nom_cc-error').removeClass('d-none');
                      $('#nom_cc').addClass('is-invalid');
                      $('#nom_cc-error').html(data.errors.nom_cc[0]);
                   }
-
 
                   if (data.errors.id_cc) {
                      $('#nom_cc-error').removeClass('d-none');
@@ -433,10 +439,22 @@ $(function () {
                      $('#fecha_fin-error').html(data.errors.fecha_fin[0]);
                   }
 
-                  if (data.errors.recibido_por) {
-                     $('#recibido_por-error').removeClass('d-none');
-                     $('#recibido_por').addClass('is-invalid');
-                     $('#recibido_por-error').html(data.errors.recibido_por[0]);
+                  if (data.errors.resp_recibio) {
+                     $('#resp_recibio-error').removeClass('d-none');
+                     $('#resp_recibio').addClass('is-invalid');
+                     $('#resp_recibio-error').html(data.errors.resp_recibio[0]);
+                  }
+
+                  if (data.errors.resp_entrega) {
+                     $('#resp_entrega-error').removeClass('d-none');
+                     $('#resp_entrega').addClass('is-invalid');
+                     $('#resp_entrega-error').html(data.errors.resp_entrega[0]);
+                  }
+
+                  if (data.errors.observaciones) {
+                     $('#observaciones-error').removeClass('d-none');
+                     $('#observaciones').addClass('is-invalid');
+                     $('#observaciones-error').html(data.errors.observaciones[0]);
                   }
 
                   // ********** VALIDACIONES ARRAY *************
@@ -469,6 +487,7 @@ $(function () {
                if (data.success) {
 
                   Swal.fire({
+                     title: 'Registro: EM-' + data.success,
                      text: "¿Desea imprimir la entrega de materiales?",
                      icon: "success",
                      showCancelButton: true,
